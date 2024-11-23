@@ -37,7 +37,7 @@ use Illuminate\Support\Str;
                                     <table class="table-striped table-md table">
                                         <tr>
                                             <th>#</th>
-                                            <th>Judul</th>
+                                            <th>Nama Periode</th>
                                             {{-- <th>Deskripsi</th> --}}
                                             {{-- <th>Created By</th> --}}
                                             <th>Action</th>
@@ -47,16 +47,16 @@ use Illuminate\Support\Str;
                                         @foreach ($data as $list)
                                             <tr>
                                                 <td>{{ $no }}</td>
-                                                <td>{{ $list->judul }}</td>
+                                                <td>{{ $list->nama }}</td>
 
                                                 {{-- <td>
                                                     {!! nl2br(htmlspecialchars_decode(Str::limit($list->deskripsi, 1000))) !!}
 
                                                 </td> --}}
 
-                                                <td><a href="periode/{{ $list->id }}/edit"
+                                                <td class="d-flex"><a href="periode/{{ $list->id }}/edit"
                                                         class="btn btn-secondary">Detail</a>
-                                                    <form class="ml-auto mr-auto mt-3" method="POST"
+                                                    <form class="ml-2" method="POST"
                                                         action="/teacher/periode/{{ $list->id }}">
                                                         {{ csrf_field() }}
                                                         @method('DELETE')

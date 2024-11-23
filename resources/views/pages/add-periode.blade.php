@@ -35,41 +35,19 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group row mb-4">
-                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama
+                                            Periode</label>
                                         <div class="col-sm-12 col-md-7">
-                                            <input type="text" class="form-control" name="judul">
+                                            <input type="text" class="form-control" name="nama">
                                         </div>
                                     </div>
 
-                                    <div class="form-group row mb-4">
-                                        <label
-                                            class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Description</label>
-                                        <div class="col-sm-12 col-md-7">
-                                            <textarea class="summernote" name="deskripsi"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row mb-4">
-                                        <label
-                                            class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thumbnail</label>
-                                        <div class="col-sm-12 col-md-7">
-                                            <div id="image-preview" class="image-preview">
-                                                <label for="image-upload" id="image-label">Choose File</label>
-                                                <input type="file" name="gambar" id="image-upload" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row mb-4">
-                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Dokumen
-                                            Tambahan (PPT / PDF)</label>
-                                        <div class="col-sm-12 col-md-7">
 
-                                            <input type="file" class="form-control" name="file">
-                                        </div>
-                                    </div>
+
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                         <div class="col-sm-12 col-md-7">
-                                            <button class="btn btn-primary" type="submit">Publish</button>
+                                            <button class="btn btn-primary" type="submit">Submit</button>
                                         </div>
                                     </div>
                                 </div>
