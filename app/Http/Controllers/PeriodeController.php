@@ -92,72 +92,37 @@ class PeriodeController extends Controller
         // $data['karyawan'] = Pegawai::where([
         //     'id' => $request->segment(3)
         // ])->first();
-        $materi = Periode::where([
+        $periode = Periode::where([
             'id' => $request->segment(3)
         ])->first();
 
-        return view('pages.edit-materi', compact('materi'));
+        return view('pages.edit-periode', compact('periode'));
     }
 
     public function update(Request $request)
     {
-        $materi = Materi::where([
+        $periode = Periode::where([
             'id' => $request->segment(3)
         ])->first();
-        // dd($request->all());
-        $materi->judul = $request->judul;
-        $materi->user_id = 2;
-        $materi->deskripsi = $request->deskripsi;
-        $materi->created_at = Carbon::now();
-        $materi->updated_at = Carbon::now();
-        // $karyawan->image=$request->image;
-
-        // if ($materi->save()) {
-        if ($request->hasFile('gambar') && $request->hasFile('file')) {
-            $gambarName = $request->file('gambar')->getClientOriginalName();
-            $request->file('gambar')->move('img/materi', $gambarName);
-
-            $fileName = $request->file('file')->getClientOriginalName();
-            $request->file('file')->move('file_upload/materi', $fileName);
-
-            $materi->gambar = $gambarName;
-            $materi->file = $fileName;
-
-            $materi->save();
-            return redirect('/teacher/materi');
-        } elseif ($request->hasFile('gambar')) {
-            $gambarName = $request->file('gambar')->getClientOriginalName();
-            $request->file('gambar')->move('img/materi', $gambarName);
+        $periode->nama = $request->nama;
+        $periode->updated_at = Carbon::now();
+        $periode->save();
 
 
-            $materi->gambar = $gambarName;
 
-            $materi->save();
-            return redirect('/teacher/materi');
-        } elseif ($request->hasFile('file')) {
-            $fileName = $request->file('file')->getClientOriginalName();
-            $request->file('file')->move('file_upload/materi', $fileName);
-
-            $materi->file = $fileName;
-
-            $materi->save();
-            return redirect('/teacher/materi');
-        } else {
-            $materi->save();
-            return redirect('/teacher/materi');
-        }
+        return redirect('/admin/periode');
     }
 
     public function destroy(Request $request, $id)
     {
-        $materi = Materi::findOrFail($id);
+        $periode = Periode::findOrFail($id);
 
 
 
-        if ($materi->delete()) {
-            return redirect('/teacher/materi');
+        if ($periode->delete()) {
+            return redirect('/admin/periode');
         } else {
-            return redirect('/teacher/materi');
+            return redirect('/admin/periode');
         }
     }
 }

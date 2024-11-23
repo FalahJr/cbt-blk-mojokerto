@@ -57,7 +57,7 @@ use Illuminate\Support\Str;
                                                 <td class="d-flex"><a href="periode/{{ $list->id }}/edit"
                                                         class="btn btn-secondary">Detail</a>
                                                     <form class="ml-2" method="POST"
-                                                        action="/teacher/periode/{{ $list->id }}">
+                                                        action="/admin/periode/{{ $list->id }}">
                                                         {{ csrf_field() }}
                                                         @method('DELETE')
                                                         <button class="btn btn-danger">Delete</button>
