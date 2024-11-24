@@ -97,6 +97,10 @@
                         <a class="nav-link" href="{{ url('admin/periode') }}"><i class="fas fa-home"></i>
                             <span>Periode</span></a>
                     </li>
+                    <li class="{{ Request::is('blank-page') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/kategori-pelatihan') }}"><i class="fas fa-home"></i>
+                            <span>Kategori Pelatihan</span></a>
+                    </li>
                     <li class="{{ Request::is('quizzes/score') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('admin/quiz') }}"><i class="fas fa-file-pen"></i>
                             <span>Result Quiz</span></a>
