@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PelatihanKategoriController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\StudentController;
@@ -123,6 +124,9 @@ Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
     // Route::get('/materi', [MateriController::class, 'index']);
     Route::resource('/periode', PeriodeController::class);
     Route::get('/add-periode', [PeriodeController::class, 'create'])->name("add-periode");
+
+    Route::resource('/kategori-pelatihan', PelatihanKategoriController::class);
+    Route::get('/add-kategori-pelatihan', [PelatihanKategoriController::class, 'create'])->name("add-kategori-pelatihan");
     Route::get('/notification', [NotificationController::class, 'index']);
 
     // Quiz
