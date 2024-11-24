@@ -86,7 +86,7 @@ class LoginController extends Controller
             return redirect('/')->with('failed', 'Data User Tidak Ditemukan');
         } else {
 
-            return redirect('/login')->with('failed', 'Data User Tidak Ditemukan');
+            return redirect('/')->with('failed', 'Data User Tidak Ditemukan');
         }
     }
 
@@ -154,6 +154,6 @@ class LoginController extends Controller
         Session::flush();
         // dd(Session('user'));
 
-        return redirect('/login');
+        return redirect('/');
     }
 }
