@@ -9,44 +9,45 @@ use Illuminate\Support\Facades\Session;
 use App\models\Admin;
 use App\Models\Materi;
 use App\Models\Notifikasi;
+use App\Models\Pelatihan;
 use App\Models\Periode;
 use App\Models\User;
 use Carbon\Carbon;
 
-class PeriodeController extends Controller
+class PelatihanKategoriController extends Controller
 {
 
     public function index()
     {
-        $data = Periode::all();
+        $data = Pelatihan::all();
 
         // dd($data);
-        return view('pages.periode-admin', compact('data'));
+        return view('pages.pelatihan-kategori-admin', compact('data'));
     }
 
 
 
     public function create()
     {
-        return view('pages.add-periode');
+        return view('pages.add-pelatihan-kategori');
     }
 
     public function store(Request $request)
     {
         // dd($request->all());
         if ($request) {
-            $periode = new Periode;
-            $periode->nama = $request->nama;
-            $periode->created_at = Carbon::now();
-            $periode->updated_at = Carbon::now();
-            $periode->save();
+            $kategori = new Pelatihan;
+            $kategori->nama = $request->nama;
+            $kategori->created_at = Carbon::now();
+            $kategori->updated_at = Carbon::now();
+            $kategori->save();
 
-            return redirect('/admin/periode');
+            return redirect('/admin/kategori-pelatihan');
 
 
             // ->with('success', 'Berhasil membuat Materi');
         } else {
-            return redirect('/admin/periode');
+            return redirect('/admin/kategori-pelatihan');
             // ->with('failed', 'Gagal membuat Materi');
         }
     }
@@ -55,37 +56,37 @@ class PeriodeController extends Controller
         // $data['karyawan'] = Pegawai::where([
         //     'id' => $request->segment(3)
         // ])->first();
-        $periode = Periode::where([
+        $kategori = Pelatihan::where([
             'id' => $request->segment(3)
         ])->first();
 
-        return view('pages.edit-periode', compact('periode'));
+        return view('pages.edit-pelatihan-kategori', compact('kategori'));
     }
 
     public function update(Request $request)
     {
-        $periode = Periode::where([
+        $kategori = Pelatihan::where([
             'id' => $request->segment(3)
         ])->first();
-        $periode->nama = $request->nama;
-        $periode->updated_at = Carbon::now();
-        $periode->save();
+        $kategori->nama = $request->nama;
+        $kategori->updated_at = Carbon::now();
+        $kategori->save();
 
 
 
-        return redirect('/admin/periode');
+        return redirect('/admin/kategori-pelatihan');
     }
 
     public function destroy(Request $request, $id)
     {
-        $periode = Periode::findOrFail($id);
+        $kategori = Pelatihan::findOrFail($id);
 
 
 
-        if ($periode->delete()) {
-            return redirect('/admin/periode');
+        if ($kategori->delete()) {
+            return redirect('/admin/kategori-pelatihan');
         } else {
-            return redirect('/admin/periode');
+            return redirect('/admin/kategori-pelatihan');
         }
     }
 }
