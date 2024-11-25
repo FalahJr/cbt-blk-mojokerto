@@ -21,9 +21,9 @@ class AuthGuru
             if ($request->session()->get('user')['role'] == 'Guru') {
                 return $next($request);
             } else {
-                return redirect('login')->with('failed', 'Akses ditolak ! Anda bukan Guru.');
+                return redirect('/')->with('failed', 'Akses ditolak ! Anda bukan Guru.');
             }
         }
-        return redirect('login')->with('failed', 'Akses ditolak ! Anda bukan Guru.');
+        return redirect('/')->with('failed', 'Akses ditolak ! Anda bukan Guru.');
     }
 }

@@ -21,9 +21,9 @@ class AuthAdmin
             if ($request->session()->get('user')['role'] == 'Admin') {
                 return $next($request);
             } else {
-                return redirect('login')->with('failed', 'Akses ditolak ! Anda bukan Admin.');
+                return redirect('/')->with('failed', 'Akses ditolak ! Anda bukan Admin.');
             }
         }
-        return redirect('login')->with('failed', 'Akses ditolak ! Anda bukan Admin.');
+        return redirect('/')->with('failed', 'Akses ditolak ! Anda bukan Admin.');
     }
 }

@@ -21,9 +21,9 @@ class AuthMurid
             if ($request->session()->get('user')['role'] == 'Murid') {
                 return $next($request);
             } else {
-                return redirect('login')->with('failed', 'Akses ditolak ! Anda bukan Murid.');
+                return redirect('/')->with('failed', 'Akses ditolak ! Anda bukan Murid.');
             }
         }
-        return redirect('login')->with('failed', 'Akses ditolak ! Anda bukan Murid.');
+        return redirect('/')->with('failed', 'Akses ditolak ! Anda bukan Murid.');
     }
 }
