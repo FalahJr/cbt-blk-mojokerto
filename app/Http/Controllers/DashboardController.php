@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use App\models\Admin;
 use App\Models\Materi;
 use App\Models\Notifikasi;
+use App\Models\Periode;
 use App\Models\QuizAttempts;
 use App\Models\Quizzes;
 use App\Models\User;
@@ -24,8 +25,8 @@ class DashboardController extends Controller
     public function indexDashboardMurid()
     {
         $newest_notifikasi = Notifikasi::where('role', '=', 'Murid')->orderBy('id', 'desc')->first();
-        $get_new_materi = Materi::latest()->first();
-        $get_new_quiz = Quizzes::where("materi_id", "=", $get_new_materi->id)->first();
+        $get_new_periode = Periode::latest()->first();
+        $get_new_quiz = Quizzes::where("periode_id", "=", $get_new_periode->id)->first();
         if ($get_new_quiz !== null) {
             $list_leaderboard = QuizAttempts::join('user', 'user.id',  '=', 'quiz_attempts.user_id')->where("quizzes_id", "=", $get_new_quiz->id)->select('quiz_attempts.*', 'user.nama_lengkap')->get();
         } else {
@@ -42,8 +43,8 @@ class DashboardController extends Controller
     public function indexDashboardGuru()
     {
         $newest_notifikasi = Notifikasi::where('role', '=', 'Murid')->orderBy('id', 'desc')->first();
-        $get_new_materi = Materi::latest()->first();
-        $get_new_quiz = Quizzes::where("materi_id", "=", $get_new_materi->id)->first();
+        $get_new_periode = Periode::latest()->first();
+        $get_new_quiz = Quizzes::where("periode_id", "=", $get_new_periode->id)->first();
 
         if ($get_new_quiz !== null) {
             $list_leaderboard = QuizAttempts::join('user', 'user.id',  '=', 'quiz_attempts.user_id')->where("quizzes_id", "=", $get_new_quiz->id)->select('quiz_attempts.*', 'user.nama_lengkap')->get();
