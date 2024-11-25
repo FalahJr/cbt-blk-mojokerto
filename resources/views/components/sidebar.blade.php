@@ -110,8 +110,8 @@
                         <a class="nav-link" href="{{ url('admin/manage-student') }}"><i class="fas fa-user"></i>
                             <span>Manajemen Peserta</span></a>
                     </li>
-                    <li class="{{ Request::is('manage-student') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('admin/manage-student') }}"><i class="fas fa-user"></i>
+                    <li class="{{ Request::is('manage-guru') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/manage-guru') }}"><i class="fas fa-user"></i>
                             <span>Manajemen Guru</span></a>
                     </li>
                     <li class="nav-item dropdown">
