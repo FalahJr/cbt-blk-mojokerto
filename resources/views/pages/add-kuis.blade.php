@@ -14,11 +14,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Add Quiz</h1>
+                <h1>Tambah Ujian</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Materi</a></div>
-                    <div class="breadcrumb-item">Add Materi</div>
+                    <div class="breadcrumb-item">Tambah Ujian</div>
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Form Add Quiz</h4>
+                                <h4>Form Tambah Ujian</h4>
                             </div>
                             <form class="form" action="{{ route('quizzes.store') }}" method="post"
                                 enctype="multipart/form-data">
@@ -43,11 +43,11 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Choose Material</label>
-                                        <select class="form-control select2" name="materi_id">
-                                            <option value="" hidden>Choose Material</option>
-                                            @foreach ($materis as $list)
-                                                <option value="{{ $list->id }}">{{ $list->judul }}</option>
+                                        <label>Pilih Periode</label>
+                                        <select class="form-control select2" name="periode_id">
+                                            <option value="" hidden>Pilih Periode</option>
+                                            @foreach ($periode as $list)
+                                                <option value="{{ $list->id }}">{{ $list->nama }}</option>
                                             @endforeach
                                             {{-- <option>Option 2</option>
                                             <option>Option 3</option> --}}
@@ -57,6 +57,12 @@
                                         <label class="">Timer</label>
                                         <div class=" ">
                                             <input type="number" class="form-control" name="timer">
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="">Tanggal Mulai</label>
+                                        <div class=" ">
+                                            <input type="date" class="form-control" name="tanggal_mulai">
                                         </div>
                                     </div>
                                     <div class="form-group ">

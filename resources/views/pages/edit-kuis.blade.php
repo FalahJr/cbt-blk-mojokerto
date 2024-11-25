@@ -31,7 +31,7 @@
                             <div class="card-header">
                                 <h4>Form Edit Quiz</h4>
                             </div>
-                            <form class="form" action="/teacher/quizzes/update/{{ $quiz->id }}" method="post"
+                            <form class="form" action="/admin/quizzes/update/{{ $quiz->id }}" method="post"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -46,13 +46,13 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Choose Material</label>
-                                        <select class="form-control select2" name="materi_id">
-                                            <option value="" hidden>Choose Material</option>
-                                            @foreach ($materis as $list)
+                                        <label>Pilih Periode</label>
+                                        <select class="form-control select2" name="periode_id">
+                                            <option value="" hidden>Pilih Periode</option>
+                                            @foreach ($periode as $list)
                                                 <option value="{{ $list->id }}"
-                                                    {{ $list->id == $quiz->materi_id ? 'selected' : '' }}>
-                                                    {{ $list->judul }}</option>
+                                                    {{ $list->id == $quiz->periode_id ? 'selected' : '' }}>
+                                                    {{ $list->nama }}</option>
                                             @endforeach
                                             {{-- <option>Option 2</option>
                                             <option>Option 3</option> --}}
@@ -63,6 +63,13 @@
                                         <div class=" ">
                                             <input type="number" class="form-control" name="timer"
                                                 value="{{ $quiz->timer }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="">Tanggal Mulai</label>
+                                        <div class=" ">
+                                            <input type="date" class="form-control" name="tanggal_mulai"
+                                                value="{{ $quiz->tanggal_mulai }}">
                                         </div>
                                     </div>
                                     <div class="form-group ">

@@ -57,7 +57,7 @@ use Illuminate\Support\Str;
                                                         <a href="quizzes/edit/{{ $list->id }}"
                                                             class="btn btn-success mr-4">Edit</a>
                                                         <form class="" method="POST"
-                                                            action="/teacher/quizzes/{{ $list->id }}">
+                                                            action="/admin/quizzes/{{ $list->id }}">
                                                             {{ csrf_field() }}
                                                             @method('DELETE')
                                                             <button class="btn btn-danger">Delete</button>
