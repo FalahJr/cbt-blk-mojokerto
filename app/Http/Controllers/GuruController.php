@@ -12,16 +12,16 @@ use App\Models\Notifikasi;
 use App\Models\User;
 use Carbon\Carbon;
 
-class StudentController extends Controller
+class GuruController extends Controller
 {
 
     public function index()
     {
-        $data = User::where("role", "=", "Murid")
+        $data = User::where("role", "=", "Guru")
             ->get();
 
         // dd($data);
-        return view('pages.list-murid', compact('data'));
+        return view('pages.list-guru', compact('data'));
     }
 
 
@@ -30,7 +30,7 @@ class StudentController extends Controller
 
     public function create()
     {
-        return view('pages.add-student');
+        return view('pages.add-guru');
     }
 
     public function store(Request $request)
@@ -42,33 +42,27 @@ class StudentController extends Controller
                 // $getPegawaiBaru = Pegawai::orderBy('created_at', 'desc')->first();
                 // $getKonfigCuti = Konfig_cuti::where('tahun',(new \DateTime())->format('Y'))->first();
                 $fileName = $request->file('gambar')->getClientOriginalName();
-                $request->file('gambar')->move('img/murid', $fileName);
+                $request->file('gambar')->move('img/guru', $fileName);
 
                 $user = new User;
                 $user->nama_lengkap = $request->nama_lengkap;
-                $user->role = "Murid";
+                $user->role = "Guru";
                 $user->email = $request->email;
                 $user->password = $request->password;
                 $user->alamat = $request->alamat;
-                $user->nomor_peserta = $request->nomor_peserta;
+                // $user->nomor_induk = $request->nomor_induk;
                 $user->gambar = $fileName;
                 $user->created_at = Carbon::now();
                 $user->updated_at = Carbon::now();
 
                 $user->save();
 
-                return redirect('/teacher/manage-student');
-
-
-
-                // ->with('success', 'Berhasil membuat Materi');
+                return redirect('/admin/manage-guru');
             } else {
-                return redirect('/teacher/manage-student');
-                // ->with('failed', 'Gagal membuat Materi');
+                return redirect('/admin/manage-guru');
             }
         } else {
-            return redirect('/teacher/materi');
-            // ->with('failed', 'Gagal membuat Materi');
+            return redirect('/admin/manage-guru');
         }
     }
     public function edit(Request $request)
@@ -76,11 +70,11 @@ class StudentController extends Controller
         // $data['karyawan'] = Pegawai::where([
         //     'id' => $request->segment(3)
         // ])->first();
-        $murid = User::where([
+        $guru = User::where([
             'id' => $request->segment(3)
         ])->first();
 
-        return view('pages.edit-student', compact('murid'));
+        return view('pages.edit-guru', compact('guru'));
     }
 
     public function update(Request $request)
@@ -94,7 +88,7 @@ class StudentController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->alamat = $request->alamat;
-        $user->nomor_induk = $request->nomor_induk;
+        $user->nomor_peserta = $request->nomor_peserta;
         // $user->gambar = "Tes";
         $user->created_at = Carbon::now();
         $user->updated_at = Carbon::now();
@@ -102,14 +96,14 @@ class StudentController extends Controller
 
         if ($request->hasFile('gambar')) {
             $fileName = $request->file('gambar')->getClientOriginalName();
-            $request->file('gambar')->move('img/murid', $fileName);
+            $request->file('gambar')->move('img/guru', $fileName);
 
             $user->gambar = $fileName;
             $user->save();
-            return redirect('/teacher/manage-student');
+            return redirect('/admin/manage-guru');
         } else {
             $user->save();
-            return redirect('/teacher/manage-student');
+            return redirect('/admin/manage-guru');
         }
     }
 
@@ -120,9 +114,9 @@ class StudentController extends Controller
 
 
         if ($user->delete()) {
-            return redirect('/teacher/manage-student');
+            return redirect('/admin/manage-guru');
         } else {
-            return redirect('/teacher/manage-student');
+            return redirect('/admin/manage-guru');
         }
     }
 }
