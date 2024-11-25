@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GuruController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\NotificationController;
@@ -58,9 +59,9 @@ Route::middleware(['authMurid'])->prefix('student')->group(function () {
     //     return view('pages.materi', ['type_menu' => 'components']);
     // });
     Route::get('/home', [DashboardController::class, 'indexDashboardMurid']);
-    Route::get('/materi', [MateriController::class, 'indexMateriMurid']);
-    Route::get('/detail-materi/{id}', [MateriController::class, 'detailMateri']);
-    Route::post('/materi/log-end-time', [MateriController::class, 'logEndTime'])->name('materi.logEndTime');
+    // Route::get('/materi', [MateriController::class, 'indexMateriMurid']);
+    // Route::get('/detail-materi/{id}', [MateriController::class, 'detailMateri']);
+    // Route::post('/materi/log-end-time', [MateriController::class, 'logEndTime'])->name('materi.logEndTime');
     Route::get('/notification', [NotificationController::class, 'index']);
 
     // Quiz
@@ -83,8 +84,8 @@ Route::middleware(['authGuru'])->prefix('teacher')->group(function () {
 
 
     // Route::get('/materi', [MateriController::class, 'index']);
-    Route::resource('/materi', MateriController::class);
-    Route::get('/add-materi', [MateriController::class, 'create'])->name("add-materi");
+    // Route::resource('/materi', MateriController::class);
+    // Route::get('/add-materi', [MateriController::class, 'create'])->name("add-materi");
     Route::get('/notification', [NotificationController::class, 'index']);
 
     // Quiz
@@ -141,6 +142,9 @@ Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
 
     Route::resource('/manage-student', StudentController::class);
     Route::get('/add-student', [StudentController::class, 'create'])->name("add-student");
+
+    Route::resource('/manage-guru', GuruController::class);
+    Route::get('/add-guru', [GuruController::class, 'create'])->name("add-guru");
 
     Route::get('quiz', [StudentQuizController::class, 'index']);
     Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByGuru'])->name('teacher.quizzes.showAllResultByGuru');
