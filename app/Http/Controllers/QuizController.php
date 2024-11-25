@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Quiz;
 use App\Models\Questions;
 use App\Models\Materi;
+use App\Models\Periode;
 use App\Models\QuizAttempts;
 use App\Models\Quizzes;
 use App\Models\UserAnswers;
@@ -20,8 +21,8 @@ class QuizController extends Controller
 
     public function create()
     {
-        $materis = Materi::all();
-        return view('pages.add-kuis', compact('materis'));
+        $periode = Periode::all();
+        return view('pages.add-kuis', compact('periode'));
     }
 
     public function store(Request $request)
@@ -29,16 +30,17 @@ class QuizController extends Controller
         // dd($request->all());
 
         $request->validate([
-            'materi_id' => 'required|exists:materi,id',
+            'periode_id' => 'required|exists:periode,id',
             'title' => 'required|string|max:255',
         ]);
 
         // dd($request->title);
 
         Quizzes::create([
-            'materi_id' => $request->materi_id,
+            'periode_id' => $request->periode_id,
             'title' => $request->title,
             'timer' => $request->timer,
+            'tanggal_mulai' => $request->tanggal_mulai,
         ]);
 
 
@@ -54,23 +56,24 @@ class QuizController extends Controller
     public function edit($id)
     {
         $quiz = Quizzes::findOrFail($id);
-        $materis = Materi::all();
-        return view('pages.edit-kuis', compact('quiz', 'materis'));
+        $periode = Periode::all();
+        return view('pages.edit-kuis', compact('quiz', 'periode'));
     }
 
     public function update(Request $request, $id)
     {
         // dd($request->all());
         $request->validate([
-            'materi_id' => 'required|exists:materi,id',
+            'periode_id' => 'required|exists:periode,id',
             'title' => 'required|string|max:255',
         ]);
 
         $quiz = Quizzes::findOrFail($id);
         $quiz->update([
-            'materi_id' => $request->materi_id,
+            'periode_id' => $request->periode_id,
             'title' => $request->title,
             'timer' => $request->timer,
+            'tanggal_mulai' => $request->tanggal_mulai,
 
         ]);
 
