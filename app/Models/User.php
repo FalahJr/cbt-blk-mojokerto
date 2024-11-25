@@ -29,14 +29,14 @@ class User extends Model
     /**
      * @var array
      */
-    protected $fillable = ['email', 'password', 'nama_lengkap', 'nomor_induk', 'role', 'alamat', 'created_at', 'updated_at'];
+    protected $fillable = ['email', 'password', 'nama_lengkap', 'nomor_peserta', 'role', 'alamat', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function materis()
+    public function pelatihans()
     {
-        return $this->hasMany('App\Models\Materi');
+        return $this->hasMany('App\Models\Pelatihan');
     }
 
     /**
