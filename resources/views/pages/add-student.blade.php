@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Materi')
+@section('title', 'Add Murid')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,11 +14,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Add Student</h1>
+                <h1>Add Murid</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Materi</a></div>
-                    <div class="breadcrumb-item">Add Student</div>
+                    <div class="breadcrumb-item"><a href="#">Murid</a></div>
+                    <div class="breadcrumb-item">Add Murid</div>
                 </div>
             </div>
 
@@ -29,9 +29,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Form Add Student</h4>
+                                <h4>Form Add Murid</h4>
                             </div>
-                            <form class="form" action="/teacher/manage-student" method="post"
+                            <form class="form" action="/admin/manage-student" method="post"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
@@ -57,9 +57,9 @@
                                     </div>
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nomor
-                                            Induk</label>
+                                            Peserta</label>
                                         <div class="col-sm-12 col-md-7">
-                                            <input type="number" min="0" class="form-control" name="nomor_induk">
+                                            <input type="number" min="0" class="form-control" name="nomor_peserta">
                                         </div>
                                     </div>
 
