@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Management Materi')
+@section('title', 'Management Soal')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
                 <h1 class="text-capitalize">{{ $quiz->title }}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Materi</a></div>
+                    <div class="breadcrumb-item"><a href="#">Manajemen Soal</a></div>
 
                 </div>
             </div>
@@ -27,8 +27,9 @@ use Illuminate\Support\Str;
                 <div class="row">
 
                     <div class="col-12 ">
-                        <a href="{{ route('questions.create', $quiz->id) }}" class="btn btn-success btn-block w-25 ">+ Add
-                            Question</a>
+                        <a href="{{ route('questions.create', $quiz->id) }}" class="btn btn-success btn-block w-25 ">+
+                            Tambah
+                            Soal</a>
                         <div class="card mt-4">
 
 
@@ -50,7 +51,9 @@ use Illuminate\Support\Str;
                                                 <td>{{ $no }}</td>
 
                                                 <td>
-                                                    <p>{{ $question->question }}</p>
+                                                    <p><b>Soal : </b></p>
+                                                    {!! nl2br(htmlspecialchars_decode($question->question)) !!}
+                                                    <p><b>Pilihan Jawaban :</b></p>
                                                     <ul class="">
                                                         <li class="">A. {{ $question->option_a }}</li>
                                                         <li>B. {{ $question->option_b }}</li>

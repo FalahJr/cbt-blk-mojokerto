@@ -46,10 +46,6 @@ class Quizzes extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function materi()
-    {
-        return $this->belongsTo('App\Models\Materi');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

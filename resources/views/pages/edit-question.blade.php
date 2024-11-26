@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Materi')
+@section('title', 'Edit Pertanyaan')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,11 +14,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit Question</h1>
+                <h1>Edit Pertanyaan</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Materi</a></div>
-                    <div class="breadcrumb-item">Add Materi</div>
+                    <div class="breadcrumb-item"><a href="#">Soal</a></div>
+                    <div class="breadcrumb-item">Edit Pertanyaan</div>
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Form Edit Question</h4>
+                                <h4>Form Edit Pertanyaan</h4>
                             </div>
                             <form class="form" action="{{ route('questions.update', [$quiz_id, $question->id]) }}"
                                 method="post" enctype="multipart/form-data">
@@ -37,11 +37,17 @@
                                 @method('PUT')
 
                                 <div class="card-body">
-                                    <div class="form-group ">
+                                    {{-- <div class="form-group ">
                                         <label class="">Question</label>
                                         <div class=" ">
                                             <input type="text" class="form-control" name="question"
                                                 value="{{ $question->question }}">
+                                        </div>
+                                    </div> --}}
+                                    <div class="form-group">
+                                        <label class="">Soal</label>
+                                        <div class="">
+                                            <textarea class="summernote" name="question">{{ $question->question }}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group ">

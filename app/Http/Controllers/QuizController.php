@@ -15,7 +15,7 @@ class QuizController extends Controller
 {
     public function index()
     {
-        $quizzes = Quizzes::with('materi')->get();
+        $quizzes = Quizzes::with('periode')->get();
         return view('pages.manage-kuis', compact('quizzes'));
     }
 

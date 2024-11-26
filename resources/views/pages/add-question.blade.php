@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Materi')
+@section('title', 'Tambah Pertanyaan')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,11 +14,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Add Question</h1>
+                <h1>Tambah Pertanyaan</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Materi</a></div>
-                    <div class="breadcrumb-item">Add Materi</div>
+                    <div class="breadcrumb-item"><a href="#">Soal</a></div>
+                    <div class="breadcrumb-item">Tambah Pertanyaan</div>
                 </div>
             </div>
 
@@ -29,16 +29,22 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Form Add Question</h4>
+                                <h4>Form Tambah Pertanyaan</h4>
                             </div>
                             <form class="form" action="{{ route('questions.store', $quiz->id) }}" method="post"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
-                                    <div class="form-group ">
+                                    {{-- <div class="form-group ">
                                         <label class="">Question</label>
                                         <div class=" ">
                                             <input type="text" class="form-control" name="question">
+                                        </div>
+                                    </div> --}}
+                                    <div class="form-group">
+                                        <label class="">Soal</label>
+                                        <div class="">
+                                            <textarea class="summernote" name="question"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group ">
