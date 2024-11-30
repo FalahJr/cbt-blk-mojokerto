@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use App\models\Admin;
 use App\Models\Materi;
 use App\Models\Notifikasi;
+use App\Models\Pelatihan;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -30,7 +31,9 @@ class StudentController extends Controller
 
     public function create()
     {
-        return view('pages.add-student');
+        $pelatihan = Pelatihan::all();
+
+        return view('pages.add-student', compact('pelatihan'));
     }
 
     public function store(Request $request)
@@ -51,6 +54,8 @@ class StudentController extends Controller
                 $user->password = $request->password;
                 $user->alamat = $request->alamat;
                 $user->nomor_peserta = $request->nomor_peserta;
+                $user->pelatihan_id = $request->pelatihan_id;
+
                 $user->gambar = $fileName;
                 $user->created_at = Carbon::now();
                 $user->updated_at = Carbon::now();
@@ -79,8 +84,11 @@ class StudentController extends Controller
         $murid = User::where([
             'id' => $request->segment(3)
         ])->first();
+        $pelatihan = Pelatihan::all();
+        // dd($pelatihan);
 
-        return view('pages.edit-student', compact('murid'));
+
+        return view('pages.edit-student', compact('murid', 'pelatihan'));
     }
 
     public function update(Request $request)
@@ -94,7 +102,8 @@ class StudentController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->alamat = $request->alamat;
-        $user->nomor_induk = $request->nomor_induk;
+        $user->nomor_peserta = $request->nomor_peserta;
+        $user->pelatihan_id = $request->pelatihan_id;
         // $user->gambar = "Tes";
         $user->created_at = Carbon::now();
         $user->updated_at = Carbon::now();
@@ -106,10 +115,10 @@ class StudentController extends Controller
 
             $user->gambar = $fileName;
             $user->save();
-            return redirect('/teacher/manage-student');
+            return redirect('/admin/manage-student');
         } else {
             $user->save();
-            return redirect('/teacher/manage-student');
+            return redirect('/admin/manage-student');
         }
     }
 
@@ -120,9 +129,9 @@ class StudentController extends Controller
 
 
         if ($user->delete()) {
-            return redirect('/teacher/manage-student');
+            return redirect('/admin/manage-student');
         } else {
-            return redirect('/teacher/manage-student');
+            return redirect('/admin/manage-student');
         }
     }
 }

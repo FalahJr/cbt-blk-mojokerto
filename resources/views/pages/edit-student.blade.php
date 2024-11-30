@@ -66,7 +66,7 @@
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nomor
                                             Peserta</label>
                                         <div class="col-sm-12 col-md-7">
-                                            <input type="number" min="0" class="form-control" name="nomor_induk"
+                                            <input type="number" min="0" class="form-control" name="nomor_peserta"
                                                 value="{{ $murid->nomor_peserta }}">
                                         </div>
                                     </div>
@@ -77,6 +77,23 @@
                                             <textarea class="form-control" name="alamat">
                                                 {{ $murid->alamat }}
                                             </textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-4">
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pilih Kategori
+                                            Pelatihan</label>
+                                        <div class="col-sm-12 col-md-7">
+
+                                            <select class="form-control selectric" name="pelatihan_id">
+                                                <option value="" hidden>Pilih Kategori Pelatihan</option>
+                                                @foreach ($pelatihan as $list)
+                                                    <option value="{{ $list->id }}"
+                                                        {{ $list->id == $murid->pelatihan_id ? 'selected' : '' }}>
+                                                        {{ $list->nama }}</option>
+                                                @endforeach
+                                                {{-- <option>Option 2</option>
+                                            <option>Option 3</option> --}}
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group row mb-4">

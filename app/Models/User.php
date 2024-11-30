@@ -29,7 +29,7 @@ class User extends Model
     /**
      * @var array
      */
-    protected $fillable = ['email', 'password', 'nama_lengkap', 'nomor_peserta', 'role', 'alamat', 'created_at', 'updated_at'];
+    protected $fillable = ['email', 'password', 'nama_lengkap', 'nomor_peserta', 'pelatihan_id', 'role', 'alamat', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

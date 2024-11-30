@@ -41,8 +41,15 @@
             @include('components.header')
 
             <!-- Sidebar -->
-            @include('components.sidebar')
+            {{-- @include('components.sidebar') --}}
+            @if (!Request::is('student/quizzes/*'))
+                @include('components.sidebar')
 
+                <!-- Jangan tampilkan sidebar -->
+
+
+                <!-- Tampilkan sidebar -->
+            @endif
             <!-- Content -->
             @yield('main')
 
