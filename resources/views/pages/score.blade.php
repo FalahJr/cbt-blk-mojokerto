@@ -51,7 +51,7 @@
                     @endif
 
                     <div class="col-12 ">
-                        @if (Session('user')['role'] == 'Guru')
+                        @if (Session('user')['role'] == 'Guru' || Session('user')['role'] == 'Admin')
                             {{-- <div class="section-header">
                                 <h1>Leaderboard</h1>
 

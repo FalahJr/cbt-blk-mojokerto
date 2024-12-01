@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelulusan;
 use App\Models\Quizzes;
 use App\Models\Questions;
 use App\Models\QuizAttempts;
@@ -13,8 +14,16 @@ class StudentQuizController extends Controller
 {
     public function index()
     {
-        $quizzes = Quizzes::join('periode', 'periode.id', '=', 'quizzes.periode_id')->select('quizzes.*', 'periode.id as id_periode')->get();
-        return view('pages.kuis', compact('quizzes'));
+        $quizzes = Quizzes::join('periode', 'periode.id', '=', 'quizzes.periode_id')->select('quizzes.*', 'periode.id as id_periode')->latest()->first();
+        $quiz_attempt = QuizAttempts::where('user_id', '=', Session('user')['id'])->where('quizzes_id', '=', $quizzes->id)->latest()->first();
+        if ($quiz_attempt) {
+            $kelulusan = Kelulusan::where('user_id', '=', Session('user')['id'])->where('quiz_attempts_id', '=', $quiz_attempt->id)->first();
+        } else {
+            $kelulusan = Kelulusan::where('user_id', '=', Session('user')['id'])->latest()->first();
+        }
+
+        // dd($quiz_attempt);
+        return view('pages.kuis', compact('quizzes', 'kelulusan', 'quiz_attempt'));
     }
 
     public function showQuiz($id)
@@ -66,6 +75,15 @@ class StudentQuizController extends Controller
         $score = ($correctAnswers / $quiz->questions->count()) * 100;
         $quizAttempt->update(['score' => $score]);
 
+        $latestQuizAttempt = QuizAttempts::latest()->first();
+
+        Kelulusan::create([
+            'user_id' => $user,
+            'quiz_attempts_id' => $latestQuizAttempt->id,
+            'nilai_wawancara' => 0,
+            'status' => "Pending",
+        ]);
+
         return redirect()->route('student.quizzes.result', ['id' => $quiz->id, 'attempt_id' => $quizAttempt->id]);
     }
 
@@ -97,6 +115,8 @@ class StudentQuizController extends Controller
         $listQuizAttempt = QuizAttempts::join('user', 'user.id',  '=', 'quiz_attempts.user_id')->where("quizzes_id", "=", $quizzes_id)->select('quiz_attempts.*', 'user.nama_lengkap')
             ->orderBy('score', 'desc')
             ->get();
+
+        // dd($listQuizAttempt);
 
         return view('pages.score', compact('listQuizAttempt'));
     }

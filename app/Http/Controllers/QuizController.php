@@ -10,6 +10,8 @@ use App\Models\QuizAttempts;
 use App\Models\Quizzes;
 use App\Models\UserAnswers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class QuizController extends Controller
 {
@@ -35,12 +37,14 @@ class QuizController extends Controller
         ]);
 
         // dd($request->title);
+        $randomKode = Str::random(6);
 
         Quizzes::create([
             'periode_id' => $request->periode_id,
             'title' => $request->title,
             'timer' => $request->timer,
             'tanggal_mulai' => $request->tanggal_mulai,
+            'kode' => $randomKode
         ]);
 
 

@@ -24,18 +24,132 @@ use App\Models\QuizAttempts;
 
             <div class="section-body">
 
-                <h2 class="section-title">All Quiz</h2>
-                <div class="row">
+                @if ($kelulusan !== null)
 
-                    @foreach ($quizzes as $list)
-                        <?php
-                        $cek = QuizAttempts::where('user_id', '=', Session('user')['id'])
-                            ->where('quizzes_id', '=', $list->id)
-                            ->first();
-                        
-                        // dd($cek);
-                        
-                        ?>
+                    @if ($kelulusan->status === 'Pending' || $kelulusan->status === 'Lolos')
+
+                        <div class="row">
+                            {{-- <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Hasil Kuis: {{ $quiz->title }}</h4>
+                                <h4>Skor Anda: {{ $quizAttempt->score }}</h4>
+                            </div>
+
+                        </div>
+                    </div> --}}
+
+                            <div class="col-12 ">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Ujian Selesai</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="empty-state" data-height="400">
+                                            <div class="empty-state-icon bg-success ">
+                                                <i class="fa-solid fa-award"></i>
+                                                {{-- <i class="fas fa-question"></i> --}}
+                                            </div>
+                                            {{-- <h2>Your Score : {{ $quizAttempt->score }}</h2> --}}
+                                            <h2>
+                                                Selamat anda telah menyelesaikan ujian
+                                            </h2>
+                                            <p class="lead">
+                                                Silahkan tunggu pengumuman lebih lanjut dari panitia.
+                                                {{-- Sekarang anda bisa melihat peringkat skor anda melalui tombol dibawah ini --}}
+                                            </p>
+                                            {{-- <a href="{{ route('student.quizzes.resultByUser', ['user_id' => Session('user')['id'], 'quiz_id' => $quiz->id]) }}"
+                                        class="btn btn-primary mt-4">Leaderboard</a> --}}
+                                            {{-- <a href="#" class="bb mt-4">Need Help?</a> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @elseif ($kelulusan->status === 'Tidak Lolos')
+                        @if ($quiz_attempt)
+                            @if ($quiz_attempt->quizzes_id === $quizzes->id)
+                                <div class="row">
+
+
+                                    <div class="col-12 ">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>Ujian Selesai</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="empty-state" data-height="400">
+                                                    <div class="empty-state-icon bg-success ">
+                                                        <i class="fa-solid fa-award"></i>
+                                                        {{-- <i class="fas fa-question"></i> --}}
+                                                    </div>
+                                                    {{-- <h2>Your Score : {{ $quizAttempt->score }}</h2> --}}
+                                                    <h2>
+                                                        Selamat anda telah menyelesaikan ujian
+                                                    </h2>
+                                                    <p class="lead">
+                                                        Silahkan tunggu pengumuman lebih lanjut dari panitia.
+                                                        {{-- Sekarang anda bisa melihat peringkat skor anda melalui tombol dibawah ini --}}
+                                                    </p>
+                                                    {{-- <a href="{{ route('student.quizzes.resultByUser', ['user_id' => Session('user')['id'], 'quiz_id' => $quiz->id]) }}"
+                                        class="btn btn-primary mt-4">Leaderboard</a> --}}
+                                                    {{-- <a href="#" class="bb mt-4">Need Help?</a> --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @else
+                            <h2 class="section-title">All Quiz</h2>
+                            <div class="row">
+
+
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                    <article class="article article-style-b">
+                                        <div class="article-header">
+                                            <div class="article-image" data-background="{{ asset('img/news/img15.jpg') }}">
+                                            </div>
+                                        </div>
+                                        <div class="article-details">
+                                            <div class="article-title">
+                                                <h2 class="text-capitalize"><a href="#">{{ $quizzes->title }}</a></h2>
+                                            </div>
+                                            {{-- <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. </p> --}}
+                                            <div class="article-cta">
+                                                @if (Session('user')['role'] == 'Murid')
+                                                    @if (now()->toDateString() === $quizzes->tanggal_mulai)
+                                                        <a href="/student/quizzes/{{ $quizzes->id }}"
+                                                            class="btn btn-success w-100 mt-5">Mulai Ujian
+                                                            <i class="fas fa-chevron-right"></i></a>
+                                                    @else
+                                                        <button disabled class="btn btn-secondary w-100 mt-5" disabled>Mulai
+                                                            Ujian</button>
+                                                    @endif
+                                                @else
+                                                    <a href="{{ route('teacher.quizzes.showAllResultByGuru', ['quiz_id' => $quizzes->id]) }}"
+                                                        class="btn btn-info w-100 mt-5 d-flex justify-content-around  align-items-center ">View
+                                                        Score
+                                                        {{-- <i class="fas fa-chevron-right "></i> --}}
+                                                    </a>
+                                                @endif
+
+
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+
+                            </div>
+                        @endif
+
+                    @endif
+                @else
+                    <h2 class="section-title">All Quiz</h2>
+                    <div class="row">
+
+
                         <div class="col-12 col-sm-6 col-md-6 col-lg-3">
                             <article class="article article-style-b">
                                 <div class="article-header">
@@ -44,25 +158,22 @@ use App\Models\QuizAttempts;
                                 </div>
                                 <div class="article-details">
                                     <div class="article-title">
-                                        <h2 class="text-capitalize"><a href="#">{{ $list->title }}</a></h2>
+                                        <h2 class="text-capitalize"><a href="#">{{ $quizzes->title }}</a></h2>
                                     </div>
                                     {{-- <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
                                     cillum dolore eu fugiat nulla pariatur. </p> --}}
                                     <div class="article-cta">
                                         @if (Session('user')['role'] == 'Murid')
-                                            @if ($cek)
-                                                <a href="{{ route('student.quizzes.resultByUser', ['user_id' => Session('user')['id'], 'quiz_id' => $list->id]) }}"
-                                                    class="btn btn-info w-100 mt-5 d-flex justify-content-around  align-items-center ">View
-                                                    Score
-                                                    {{-- <i class="fas fa-chevron-right "></i> --}}
-                                                </a>
-                                            @else
-                                                <a href="/student/quizzes/{{ $list->id }}"
-                                                    class="btn btn-success w-100 mt-5">Start Quiz
+                                            @if (now()->toDateString() === $quizzes->tanggal_mulai)
+                                                <a href="/student/quizzes/{{ $quizzes->id }}"
+                                                    class="btn btn-success w-100 mt-5">Mulai Ujian
                                                     <i class="fas fa-chevron-right"></i></a>
+                                            @else
+                                                <button disabled class="btn btn-disable w-100 mt-5" disabled>Mulai
+                                                    Ujian</button>
                                             @endif
                                         @else
-                                            <a href="{{ route('teacher.quizzes.showAllResultByGuru', ['quiz_id' => $list->id]) }}"
+                                            <a href="{{ route('teacher.quizzes.showAllResultByGuru', ['quiz_id' => $quizzes->id]) }}"
                                                 class="btn btn-info w-100 mt-5 d-flex justify-content-around  align-items-center ">View
                                                 Score
                                                 {{-- <i class="fas fa-chevron-right "></i> --}}
@@ -74,45 +185,10 @@ use App\Models\QuizAttempts;
                                 </div>
                             </article>
                         </div>
-                    @endforeach
 
-                    {{-- <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                        <article class="article article-style-b">
-                            <div class="article-header">
-                                <div class="article-image" data-background="{{ asset('img/news/img07.jpg') }}">
-                                </div>
-                            </div>
-                            <div class="article-details">
-                                <div class="article-title">
-                                    <h2><a href="#">Excepteur sint occaecat cupidatat non proident</a></h2>
-                                </div>
-                                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                    cillum dolore eu fugiat nulla pariatur. </p>
-                                <div class="article-cta">
-                                    <a href="#">Read More <i class="fas fa-chevron-right"></i></a>
-                                </div>
-                            </div>
-                        </article>
                     </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                        <article class="article article-style-b">
-                            <div class="article-header">
-                                <div class="article-image" data-background="{{ asset('img/news/img02.jpg') }}">
-                                </div>
-                            </div>
-                            <div class="article-details">
-                                <div class="article-title">
-                                    <h2><a href="#">Excepteur sint occaecat cupidatat non proident</a></h2>
-                                </div>
-                                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                    cillum dolore eu fugiat nulla pariatur. </p>
-                                <div class="article-cta">
-                                    <a href="#">Read More <i class="fas fa-chevron-right"></i></a>
-                                </div>
-                            </div>
-                        </article>
-                    </div> --}}
-                </div>
+                @endif
+
 
             </div>
         </section>

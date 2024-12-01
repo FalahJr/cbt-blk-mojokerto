@@ -125,7 +125,7 @@
                                     @endforeach
                                     <div class="form-group">
                                         <div class="">
-                                            <button class="btn btn-primary" type="submit">Publish</button>
+                                            <button class="btn btn-primary" type="submit">Kirim</button>
                                         </div>
                                     </div>
                                 </div>
