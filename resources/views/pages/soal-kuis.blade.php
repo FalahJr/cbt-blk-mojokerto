@@ -149,6 +149,7 @@
                 keyboard: false
             });
 
+
             // Show code modal first
             codeModal.show();
             const startButton = document.getElementById('startFullscreen');
@@ -216,6 +217,15 @@
                 }
             }
 
+            // function handleFullscreenExit() {
+            //     const sidebar = document.getElementById(
+            //         'sidebar-wrapper'); // Ensure this matches the ID of the sidebar
+            //     if (sidebar) {
+            //         console.log("Showing sidebar");
+            //         sidebar.style.display = 'block'; // Show sidebar again
+            //     }
+            // }
+
             function handleFullscreenExit() {
                 const sidebar = document.getElementById(
                     'sidebar-wrapper'); // Ensure this matches the ID of the sidebar
@@ -223,7 +233,17 @@
                     console.log("Showing sidebar");
                     sidebar.style.display = 'block'; // Show sidebar again
                 }
+                if (
+                    !document.fullscreenElement &&
+                    !document.webkitFullscreenElement &&
+                    !document.mozFullScreenElement &&
+                    !document.msFullscreenElement
+                ) {
+                    alert('Anda keluar dari fullscreen! Ujian akan diakhiri.');
+                    quizForm.submit();
+                }
             }
+
 
             startButton.addEventListener('click', function() {
                 goFullscreen();

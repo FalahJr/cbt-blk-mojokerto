@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Materi')
+@section('title', 'Ujian Selesai')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,11 +14,10 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Hasil Quiz</h1>
+                <h1>Ujian Selesai</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Materi</a></div>
-                    <div class="breadcrumb-item">Add Materi</div>
+                    <div class="breadcrumb-item">Ujian</div>
                 </div>
             </div>
 
@@ -39,7 +38,7 @@
                     <div class="col-12 ">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Result Quiz</h4>
+                                <h4>Ujian Selesai</h4>
                             </div>
                             <div class="card-body">
                                 <div class="empty-state" data-height="400">
@@ -47,10 +46,13 @@
                                         <i class="fa-solid fa-award"></i>
                                         {{-- <i class="fas fa-question"></i> --}}
                                     </div>
-                                    <h2>Your Score : {{ $quizAttempt->score }}</h2>
-                                    <p class="lead">
+                                    {{-- <h2>Your Score : {{ $quizAttempt->score }}</h2> --}}
+                                    <h2>
                                         Selamat anda telah menyelesaikan ujian : <b class="text-capitalize">
                                             {{ $quiz->title }} </b>.
+                                    </h2>
+                                    <p class="lead">
+                                        Silahkan tunggu pengumuman lebih lanjut dari panitia.
                                         {{-- Sekarang anda bisa melihat peringkat skor anda melalui tombol dibawah ini --}}
                                     </p>
                                     {{-- <a href="{{ route('student.quizzes.resultByUser', ['user_id' => Session('user')['id'], 'quiz_id' => $quiz->id]) }}"

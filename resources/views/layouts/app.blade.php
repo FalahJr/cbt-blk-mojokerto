@@ -42,7 +42,7 @@
 
             <!-- Sidebar -->
             {{-- @include('components.sidebar') --}}
-            @if (!Request::is('student/quizzes/*'))
+            @if (!Request::is('student/quizzes/*') || Request::is('student/quizzes/*/result/*'))
                 @include('components.sidebar')
 
                 <!-- Jangan tampilkan sidebar -->
