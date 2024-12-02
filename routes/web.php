@@ -88,15 +88,17 @@ Route::middleware(['authGuru'])->prefix('teacher')->group(function () {
     // Route::get('/add-materi', [MateriController::class, 'create'])->name("add-materi");
     Route::get('/notification', [NotificationController::class, 'index']);
 
+    Route::resource('/periode', PeriodeController::class);
+    Route::get('/add-periode', [PeriodeController::class, 'create'])->name("add-periode");
     // Quiz
-    Route::resource('quizzes', QuizController::class);
-    Route::get('quizzes/edit/{id}', [QuizController::class, 'edit']);
-    Route::put('quizzes/update/{id}', [QuizController::class, 'update']);
-    Route::get('quizzes/{quiz}/questions/create', [QuizController::class, 'createQuestion'])->name('questions.create');
-    Route::post('quizzes/{quiz}/questions', [QuizController::class, 'storeQuestion'])->name('questions.store');
-    Route::get('quizzes/{quiz}/questions/{question}/edit', [QuizController::class, 'editQuestion'])->name('questions.edit');
-    Route::put('quizzes/{quiz}/questions/{question}', [QuizController::class, 'updateQuestion'])->name('questions.update');
-    Route::delete('quizzes/{quiz}/questions/{question}', [QuizController::class, 'destroyQuestion'])->name('questions.destroy');
+    // Route::resource('quizzes', QuizController::class);
+    // Route::get('quizzes/edit/{id}', [QuizController::class, 'edit']);
+    // Route::put('quizzes/update/{id}', [QuizController::class, 'update']);
+    // Route::get('quizzes/{quiz}/questions/create', [QuizController::class, 'createQuestion'])->name('questions.create');
+    // Route::post('quizzes/{quiz}/questions', [QuizController::class, 'storeQuestion'])->name('questions.store');
+    // Route::get('quizzes/{quiz}/questions/{question}/edit', [QuizController::class, 'editQuestion'])->name('questions.edit');
+    // Route::put('quizzes/{quiz}/questions/{question}', [QuizController::class, 'updateQuestion'])->name('questions.update');
+    // Route::delete('quizzes/{quiz}/questions/{question}', [QuizController::class, 'destroyQuestion'])->name('questions.destroy');
 
     Route::resource('/manage-student', StudentController::class);
     Route::get('/add-student', [StudentController::class, 'create'])->name("add-student");
@@ -104,10 +106,7 @@ Route::middleware(['authGuru'])->prefix('teacher')->group(function () {
     Route::get('quiz', [StudentQuizController::class, 'index']);
     Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByGuru'])->name('teacher.quizzes.showAllResultByGuru');
 
-    Route::resource('assignment', AssignmentController::class);
-    Route::get('/add-assignment', [AssignmentController::class, 'create'])->name("add-assignment");
-    Route::get('assignments/submission/', [AssignmentController::class, 'indexAssignmentMurid']);
-    Route::get('assignments/submission/{id}', [AssignmentController::class, 'viewSubmissions']);
+
 
     Route::get('profile', [UserController::class, 'index']);
     Route::put('profile', [UserController::class, 'update']);
@@ -147,7 +146,7 @@ Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
     Route::get('/add-guru', [GuruController::class, 'create'])->name("add-guru");
 
     Route::get('quiz', [StudentQuizController::class, 'index']);
-    Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByGuru'])->name('teacher.quizzes.showAllResultByGuru');
+    Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByAdmin'])->name('admin.quizzes.showAllResultByAdmin');
 
     Route::resource('assignment', AssignmentController::class);
     Route::get('/add-assignment', [AssignmentController::class, 'create'])->name("add-assignment");
