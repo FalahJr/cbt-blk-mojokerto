@@ -25,7 +25,7 @@
                 <div class="col-9">
                     <div class="section-header flex-column align-items-start ">
                         <div class="d-flex justify-content-between align-items-center w-100">
-                            <h1>My Students</h1>
+                            <h1>Daftar Peserta</h1>
                             <a href="{{ url('teacher/manage-student') }}">View All</a>
                         </div>
                         <div class="d-flex justify-content-center align-items-center w-100 mt-5">

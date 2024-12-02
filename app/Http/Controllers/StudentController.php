@@ -18,8 +18,14 @@ class StudentController extends Controller
 
     public function index()
     {
-        $data = User::where("role", "=", "Murid")
-            ->get();
+        if (Session('user')['role'] == 'Guru') {
+            $data = User::where("role", "=", "Murid")->where('pelatihan_id', '=', Session('user')['pelatihan_id'])
+                ->get();
+        } else {
+            $data = User::where("role", "=", "Murid")
+                ->get();
+        }
+
 
         // dd($data);
         return view('pages.list-murid', compact('data'));
