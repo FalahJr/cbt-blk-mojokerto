@@ -28,40 +28,17 @@
                         <a class="nav-link" href="{{ url('teacher/home') }}"><i class="fas fa-th-large"></i>
                             <span>Dashboard</span></a>
                     </li>
-                    <li class="{{ Request::is('blank-page') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('teacher/materi') }}"><i class="fas fa-home"></i>
-                            <span>Material</span></a>
+                    <li class="{{ Request::is('teacher/periode') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('teacher/periode') }}"><i class="fas fa-home"></i>
+                            <span>Periode</span></a>
                     </li>
                     <li class="{{ Request::is('quizzes/score') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('teacher/quiz') }}"><i class="fas fa-file-pen"></i>
-                            <span>Result Quiz</span></a>
+                            <span>Hasil Ujian</span></a>
                     </li>
                     <li class="{{ Request::is('manage-student') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('teacher/manage-student') }}"><i class="fas fa-user"></i>
-                            <span>Manage Students</span></a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                                class="fas fa-columns"></i>
-                            <span>Manage Quiz</span></a>
-                        <ul class="dropdown-menu">
-                            <li class="{{ Request::is('teacher/quizzes') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ url('teacher/quizzes') }}">Quiz</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                                class="fas fa-columns"></i>
-                            <span>Assignment</span></a>
-                        <ul class="dropdown-menu">
-                            <li class="{{ Request::is('teacher/assignment') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ url('teacher/assignment') }}">Manage Assignment</a>
-                            </li>
-                            <li class="{{ Request::is('submission/') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ url('teacher/assignments/submission/') }}">Result</a>
-                            </li>
-                        </ul>
+                            <span>Manajemen Peserta</span></a>
                     </li>
                 @endif
                 @if (Session('user')['role'] == 'Admin')
