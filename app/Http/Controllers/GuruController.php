@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use App\models\Admin;
 use App\Models\Materi;
 use App\Models\Notifikasi;
+use App\Models\Pelatihan;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -30,7 +31,10 @@ class GuruController extends Controller
 
     public function create()
     {
-        return view('pages.add-guru');
+
+        $pelatihan = Pelatihan::all();
+
+        return view('pages.add-guru', compact('pelatihan'));
     }
 
     public function store(Request $request)
@@ -50,6 +54,8 @@ class GuruController extends Controller
                 $user->email = $request->email;
                 $user->password = $request->password;
                 $user->alamat = $request->alamat;
+                $user->pelatihan_id = $request->pelatihan_id;
+
                 // $user->nomor_induk = $request->nomor_induk;
                 $user->gambar = $fileName;
                 $user->created_at = Carbon::now();
@@ -74,7 +80,10 @@ class GuruController extends Controller
             'id' => $request->segment(3)
         ])->first();
 
-        return view('pages.edit-guru', compact('guru'));
+        $pelatihan = Pelatihan::all();
+
+
+        return view('pages.edit-guru', compact('guru', 'pelatihan'));
     }
 
     public function update(Request $request)
@@ -89,6 +98,8 @@ class GuruController extends Controller
         $user->password = $request->password;
         $user->alamat = $request->alamat;
         $user->nomor_peserta = $request->nomor_peserta;
+        $user->pelatihan_id = $request->pelatihan_id;
+
         // $user->gambar = "Tes";
         $user->created_at = Carbon::now();
         $user->updated_at = Carbon::now();

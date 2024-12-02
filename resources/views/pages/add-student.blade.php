@@ -69,16 +69,21 @@
                                             <textarea class="form-control" name="alamat"></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Pilih Kategori Pelatihan </label>
-                                        <select class="form-control select2" name="periode_id">
-                                            <option value="" hidden>Pilih Kategori Pelatihan</option>
-                                            @foreach ($pelatihan as $list)
-                                                <option value="{{ $list->id }}">{{ $list->nama }}</option>
-                                            @endforeach
-                                            {{-- <option>Option 2</option>
+                                    <div class="form-group row">
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pilih Kategori
+                                            Pelatihan </label>
+                                        <div class="col-sm-12 col-md-7">
+
+                                            <select class="form-control select2" name="periode_id">
+                                                <option value="" hidden>Pilih Kategori Pelatihan</option>
+                                                @foreach ($pelatihan as $list)
+                                                    <option value="{{ $list->id }}">{{ $list->nama }}</option>
+                                                @endforeach
+                                                {{-- <option>Option 2</option>
                                             <option>Option 3</option> --}}
-                                        </select>
+                                            </select>
+
+                                        </div>
                                     </div>
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Foto

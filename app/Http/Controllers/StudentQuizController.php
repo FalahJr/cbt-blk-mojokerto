@@ -22,7 +22,8 @@ class StudentQuizController extends Controller
             $kelulusan = Kelulusan::where('user_id', '=', Session('user')['id'])->latest()->first();
         }
 
-        // dd($quiz_attempt);
+        // dd((Session('user')['role']));
+
         return view('pages.kuis', compact('quizzes', 'kelulusan', 'quiz_attempt'));
     }
 
@@ -111,6 +112,17 @@ class StudentQuizController extends Controller
     }
 
     public function showAllResultByGuru($quizzes_id)
+    {
+        $listQuizAttempt = QuizAttempts::join('user', 'user.id',  '=', 'quiz_attempts.user_id')->where("quizzes_id", "=", $quizzes_id)->where('user.pelatihan_id', '=', Session('user')['pelatihan_id'])->select('quiz_attempts.*', 'user.nama_lengkap', 'user.pelatihan_id')
+            ->orderBy('score', 'desc')
+            ->get();
+
+        // dd(Session('user')['pelatihan_id']);
+
+        return view('pages.score', compact('listQuizAttempt'));
+    }
+
+    public function showAllResultByAdmin($quizzes_id)
     {
         $listQuizAttempt = QuizAttempts::join('user', 'user.id',  '=', 'quiz_attempts.user_id')->where("quizzes_id", "=", $quizzes_id)->select('quiz_attempts.*', 'user.nama_lengkap')
             ->orderBy('score', 'desc')

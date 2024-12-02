@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Management Materi')
+@section('title', 'Management Kategori')
 
 @push('style')
     <!-- CSS Libraries -->

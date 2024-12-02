@@ -172,8 +172,14 @@ use App\Models\QuizAttempts;
                                                 <button disabled class="btn btn-disable w-100 mt-5" disabled>Mulai
                                                     Ujian</button>
                                             @endif
-                                        @else
+                                        @elseif (Session('user')['role'] == 'Guru')
                                             <a href="{{ route('teacher.quizzes.showAllResultByGuru', ['quiz_id' => $quizzes->id]) }}"
+                                                class="btn btn-info w-100 mt-5 d-flex justify-content-around  align-items-center ">View
+                                                Score
+                                                {{-- <i class="fas fa-chevron-right "></i> --}}
+                                            </a>
+                                        @else
+                                            <a href="{{ route('admin.quizzes.showAllResultByAdmin', ['quiz_id' => $quizzes->id]) }}"
                                                 class="btn btn-info w-100 mt-5 d-flex justify-content-around  align-items-center ">View
                                                 Score
                                                 {{-- <i class="fas fa-chevron-right "></i> --}}

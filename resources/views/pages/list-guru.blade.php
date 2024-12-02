@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Management Murid')
+@section('title', 'Management Guru')
 
 @push('style')
     <!-- CSS Libraries -->

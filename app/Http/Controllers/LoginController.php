@@ -78,7 +78,7 @@ class LoginController extends Controller
         // dd($admin);
         if ($admin) {
 
-            $check = $this->checkUser($request, $admin, $admin->role);
+            $check = $this->checkUser($request, $admin, $admin->role, $admin->pelatihan_id);
             if ($check != null) {
                 return $check;
             }
@@ -90,7 +90,7 @@ class LoginController extends Controller
         }
     }
 
-    private function checkUser($request, $user, $role)
+    private function checkUser($request, $user, $role, $pelatihan_id)
     {
         // Session::flush();
 
@@ -103,6 +103,7 @@ class LoginController extends Controller
             $user['id'] = $user['id'] ?? $user['id_admin'];
             $user['nama'] = $user['nama_lengkap'];
             $user['divisi'] = $user['divisi_id'] ?? null;
+            $user['pelatihan_id'] = $pelatihan_id;
             Session(['user' => $user]);
             // dd($role);
             switch ($role) {

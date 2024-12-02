@@ -62,17 +62,17 @@ class StudentController extends Controller
 
                 $user->save();
 
-                return redirect('/teacher/manage-student');
+                return redirect('/admin/manage-student');
 
 
 
                 // ->with('success', 'Berhasil membuat Materi');
             } else {
-                return redirect('/teacher/manage-student');
+                return redirect('/admin/manage-student');
                 // ->with('failed', 'Gagal membuat Materi');
             }
         } else {
-            return redirect('/teacher/materi');
+            return redirect('/admin/manage-student');
             // ->with('failed', 'Gagal membuat Materi');
         }
     }
