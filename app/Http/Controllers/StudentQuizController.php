@@ -126,7 +126,7 @@ class StudentQuizController extends  Controller
 
         // dd(Session('user')['pelatihan_id']);
 
-        return view('pages.score', compact('listQuizAttempt', 'pelatihan'));
+        return view('pages.score', compact('listQuizAttempt', 'pelatihan', 'quizzes_id'));
     }
 
     public function showAllResultByAdmin($quizzes_id, Request $request)
@@ -162,8 +162,12 @@ class StudentQuizController extends  Controller
     public function exportToExcel($quizzes_id, Request $request)
     {
         $pelatihan_id = $request->pelatihan_id ?? null;
-
-        $pelatihan = Pelatihan::where('id', $pelatihan_id)->first();
+        if (Session('user')['role'] == 'Guru') {
+            $pelatihan_id = Session('user')['pelatihan_id'];
+            $pelatihan = Pelatihan::where('id', $pelatihan_id)->first();
+        } else {
+            $pelatihan = Pelatihan::where('id', $pelatihan_id)->first();
+        }
 
         return Excel::download(new QuizAttemptsExport($quizzes_id, $pelatihan_id), 'Nilai Pelatihan ' . $pelatihan->nama . '.xlsx');
     }

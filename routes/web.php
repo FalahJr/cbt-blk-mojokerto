@@ -105,6 +105,7 @@ Route::middleware(['authGuru'])->prefix('teacher')->group(function () {
 
     Route::get('quiz', [StudentQuizController::class, 'index']);
     Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByGuru'])->name('teacher.quizzes.showAllResultByGuru');
+    Route::get('/quizzes/{quizzes_id}/export', [StudentQuizController::class, 'exportToExcel'])->name('guru.quizzes.export');
 
 
 

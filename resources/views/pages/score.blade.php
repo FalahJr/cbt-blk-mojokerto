@@ -73,6 +73,10 @@
                                         <strong>{{ $pelatihan->where('id', session('user')['pelatihan_id'])->first()->nama ?? 'Tidak Diketahui' }}</strong>
                                     </p>
                                 </div>
+                                <div class="card-body">
+                                    <a href="{{ route('guru.quizzes.export', ['quizzes_id' => $quizzes_id, 'pelatihan_id' => request('pelatihan_id')]) }}"
+                                        class="btn btn-success">Export to Excel</a>
+                                </div>
                             @endif
                         </div>
 
