@@ -148,6 +148,7 @@ Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
     Route::get('quiz', [StudentQuizController::class, 'index']);
     Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByAdmin'])
         ->name('admin.quizzes.showAllResultByAdmin');
+    Route::get('/quizzes/{quizzes_id}/export', [StudentQuizController::class, 'exportToExcel'])->name('quizzes.export');
 
     // Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByAdmin'])->name('admin.quizzes.showAllResultebByAdmin');
 

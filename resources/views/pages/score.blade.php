@@ -49,7 +49,17 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Tampilkan</button>
+                                        <div class="d-flex">
+                                            <button type="submit" class="btn btn-primary mr-2">Tampilkan</button>
+                                            @if (request('pelatihan_id'))
+                                                <a href="{{ route('quizzes.export', ['quizzes_id' => $quizzes_id, 'pelatihan_id' => request('pelatihan_id')]) }}"
+                                                    class="btn btn-success">Export to Excel</a>
+                                            @else
+                                                <button type="submit" class="btn btn-secondary mr-2" disabled>Export to
+                                                    Excel</button>
+                                            @endif
+
+                                        </div>
                                     </form>
 
                                 </div>

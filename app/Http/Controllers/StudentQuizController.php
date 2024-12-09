@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\QuizAttemptsExport;
 use App\Models\Kelulusan;
 use App\Models\Pelatihan;
 use App\Models\Quizzes;
@@ -10,6 +11,7 @@ use App\Models\QuizAttempts;
 use App\Models\UserAnswers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentQuizController extends  Controller
 {
@@ -155,5 +157,14 @@ class StudentQuizController extends  Controller
         // dd($query->toSql(), $query->getBindings(), $listQuizAttempt);
 
         return view('pages.score', compact('listQuizAttempt', 'pelatihan', 'quizzes_id', 'pelatihan_id'));
+    }
+
+    public function exportToExcel($quizzes_id, Request $request)
+    {
+        $pelatihan_id = $request->pelatihan_id ?? null;
+
+        $pelatihan = Pelatihan::where('id', $pelatihan_id)->first();
+
+        return Excel::download(new QuizAttemptsExport($quizzes_id, $pelatihan_id), 'Nilai Pelatihan ' . $pelatihan->nama . '.xlsx');
     }
 }
