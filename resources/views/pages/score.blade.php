@@ -14,11 +14,7 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                @if (Session('user')['role'] == 'Murid')
-                    <h1>Hasil Quiz</h1>
-                @else
-                    <h1>Leaderboard</h1>
-                @endif
+                <h1>Leaderboard</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Materi</a></div>
@@ -27,104 +23,92 @@
             </div>
 
             <div class="section-body">
-
-
                 <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            @if (session('user')['role'] === 'Admin')
 
-                    @if (Session('user')['role'] == 'Murid')
-                        <div class="col-12 ">
-                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Filter Berdasarkan Jenis Pelatihan</h4>
+                                </div>
 
                                 <div class="card-body">
-                                    <div class="empty-state" data-height="150">
-                                        <div class="empty-state-icon bg-success ">
-                                            <i class="fa-solid fa-award"></i>
-                                            {{-- <i class="fas fa-question"></i> --}}
+                                    <!-- Dropdown untuk admin -->
+                                    <form action="{{ route('admin.quizzes.showAllResultByAdmin', $quizzes_id) }}"
+                                        method="GET">
+                                        <div class="form-group">
+                                            <label for="pelatihan_id">Pilih Pelatihan</label>
+                                            <select class="form-control" id="pelatihan_id" name="pelatihan_id" required>
+                                                <option value="" disabled selected>-- Pilih Jenis Pelatihan --
+                                                </option>
+                                                @foreach ($pelatihan as $p)
+                                                    <option value="{{ $p->id }}"
+                                                        {{ request('pelatihan_id') == $p->id ? 'selected' : '' }}>
+                                                        {{ $p->nama }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                        <h2>Your Score : {{ $quizAttempt->score }}</h2>
+                                        <button type="submit" class="btn btn-primary">Tampilkan</button>
+                                    </form>
 
+                                </div>
+                            @else
+                                <!-- Data langsung ditampilkan untuk guru -->
 
+                                <div class="card-header">
+
+                                    <p class="text-info">
+                                        Data ditampilkan berdasarkan pelatihan Anda:
+                                        <strong>{{ $pelatihan->where('id', session('user')['pelatihan_id'])->first()->nama ?? 'Tidak Diketahui' }}</strong>
+                                    </p>
+                                </div>
+                            @endif
+                        </div>
+
+                        @if ($listQuizAttempt != null)
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table-striped table-md table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ranking</th>
+                                                    <th>Nama Lengkap</th>
+                                                    <th>Nilai</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse ($listQuizAttempt as $index => $list)
+                                                    <tr>
+                                                        <td>{{ $index + 1 }}</td>
+                                                        <td>{{ $list->nama_lengkap }}</td>
+                                                        <td>{{ $list->score }}</td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="3" class="text-center">Data tidak ditemukan</td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endif
-
-                    <div class="col-12 ">
-                        @if (Session('user')['role'] == 'Guru' || Session('user')['role'] == 'Admin')
-                            {{-- <div class="section-header">
-                                <h1>Leaderboard</h1>
-
-                            </div> --}}
-
-
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-
-                                    <table class="table-striped table-md table">
-                                        <tr>
-                                            <th>Ranking</th>
-                                            <th>Nama Lengkap</th>
-                                            <th>Nilai</th>
-                                            {{-- <th>Created By</th> --}}
-                                            {{-- <th>Action</th> --}}
-                                        </tr>
-                                        <?php $no = 1; ?>
-
-                                        @foreach ($listQuizAttempt as $list)
-                                            <tr>
-                                                <td>{{ $no }}</td>
-                                                <td>{{ $list->nama_lengkap }}</td>
-
-                                                <td>
-                                                    {{ $list->score }}
-                                                </td>
-
-                                            </tr>
-                                            <?php $no++; ?>
-                                        @endforeach
-
-
-                                    </table>
-                                </div>
-                            </div>
+                        @else
+                            <div class="alert alert-info">Pilih Jenis Pelatihan Terlebih Dahulu.</div>
                         @endif
-
-                        {{-- <div class="card-footer text-right">
-                            <nav class="d-inline-block">
-                                <ul class="pagination mb-0">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1"><i
-                                                class="fas fa-chevron-left"></i></a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1 <span
-                                                class="sr-only">(current)</span></a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div> --}}
                     </div>
                 </div>
             </div>
-
-
-    </div>
-    </section>
+        </section>
     </div>
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
+    <!-- JS Libraries -->
     <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
     <script src="{{ asset('library/codemirror/lib/codemirror.js') }}"></script>
     <script src="{{ asset('library/codemirror/mode/javascript/javascript.js') }}"></script>
     <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
-
-    <!-- Page Specific JS File -->
 @endpush

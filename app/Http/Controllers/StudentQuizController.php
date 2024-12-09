@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelulusan;
+use App\Models\Pelatihan;
 use App\Models\Quizzes;
 use App\Models\Questions;
 use App\Models\QuizAttempts;
@@ -10,7 +11,7 @@ use App\Models\UserAnswers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class StudentQuizController extends Controller
+class StudentQuizController extends  Controller
 {
     public function index()
     {
@@ -31,6 +32,7 @@ class StudentQuizController extends Controller
     {
         // dd($id);
         $quiz = Quizzes::with('questions')->findOrFail($id);
+        $quiz->questions = $quiz->questions->shuffle();
         // $quiz = Quizzes::all;
 
         // dd($quiz);
@@ -117,19 +119,41 @@ class StudentQuizController extends Controller
             ->orderBy('score', 'desc')
             ->get();
 
+        $pelatihan = Pelatihan::all();
+
+
         // dd(Session('user')['pelatihan_id']);
 
-        return view('pages.score', compact('listQuizAttempt'));
+        return view('pages.score', compact('listQuizAttempt', 'pelatihan'));
     }
 
-    public function showAllResultByAdmin($quizzes_id)
+    public function showAllResultByAdmin($quizzes_id, Request $request)
     {
-        $listQuizAttempt = QuizAttempts::join('user', 'user.id',  '=', 'quiz_attempts.user_id')->where("quizzes_id", "=", $quizzes_id)->select('quiz_attempts.*', 'user.nama_lengkap')
-            ->orderBy('score', 'desc')
-            ->get();
+        // Pastikan hanya data yang sesuai dengan quiz dan pelatihan yang dipilih
+        $query = QuizAttempts::join('user', 'user.id', '=', 'quiz_attempts.user_id')
+            ->where('quiz_attempts.quizzes_id', '=', $quizzes_id)
+            ->select('quiz_attempts.*', 'user.nama_lengkap')
+            ->orderBy('quiz_attempts.score', 'desc');
+        $listQuizAttempt = Null;
+
+        // Tambahkan filter pelatihan jika parameter pelatihan_id diberikan
+        if (isset($request->pelatihan_id)) {
+            $pelatihan_id = $request->pelatihan_id;
+            $query->where('user.pelatihan_id', '=', $pelatihan_id);
+            $listQuizAttempt = $query->get();
+        }
+
+        $pelatihan_id = $request->pelatihan_id;
+
 
         // dd($listQuizAttempt);
 
-        return view('pages.score', compact('listQuizAttempt'));
+        // Ambil daftar pelatihan untuk dropdown atau keperluan lainnya
+        $pelatihan = Pelatihan::all();
+        // dd($pelatihan);
+        // dd($request->pelatihan_id);
+        // dd($query->toSql(), $query->getBindings(), $listQuizAttempt);
+
+        return view('pages.score', compact('listQuizAttempt', 'pelatihan', 'quizzes_id', 'pelatihan_id'));
     }
 }
