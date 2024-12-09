@@ -146,7 +146,10 @@ Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
     Route::get('/add-guru', [GuruController::class, 'create'])->name("add-guru");
 
     Route::get('quiz', [StudentQuizController::class, 'index']);
-    Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByAdmin'])->name('admin.quizzes.showAllResultByAdmin');
+    Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByAdmin'])
+        ->name('admin.quizzes.showAllResultByAdmin');
+
+    // Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByAdmin'])->name('admin.quizzes.showAllResultebByAdmin');
 
     Route::resource('assignment', AssignmentController::class);
     Route::get('/add-assignment', [AssignmentController::class, 'create'])->name("add-assignment");
