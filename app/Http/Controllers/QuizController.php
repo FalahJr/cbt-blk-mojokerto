@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\QuestionsImport;
 use App\Models\Quiz;
 use App\Models\Questions;
 use App\Models\Materi;
@@ -11,7 +12,7 @@ use App\Models\Quizzes;
 use App\Models\UserAnswers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class QuizController extends Controller
 {
@@ -50,6 +51,7 @@ class QuizController extends Controller
 
         return redirect()->route('quizzes.index')->with('success', 'Quiz created successfully.');
     }
+
 
     public function show($id)
     {
@@ -158,6 +160,18 @@ class QuizController extends Controller
         ]);
 
         return redirect()->route('quizzes.show', $quiz_id)->with('success', 'Question added successfully.');
+    }
+
+    public function importQuestions(Request $request, $quiz_id)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+
+        // Proses import menggunakan Laravel Excel
+        Excel::import(new QuestionsImport($quiz_id), $request->file('file'));
+
+        return redirect()->route('quizzes.show', $quiz_id)->with('success', 'Soal berhasil diimport!');
     }
 
     public function editQuestion($quiz_id, $question_id)

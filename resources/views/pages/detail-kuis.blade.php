@@ -12,7 +12,33 @@ use Illuminate\Support\Str;
 
 @section('main')
     <div class="main-content">
+        <div class="modal " id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="{{ route('questions.import', $quiz->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="importModalLabel">Import Soal</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="file">Pilih File Excel</label>
+                                <input type="file" class="form-control" id="file" name="file" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Import</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <section class="section">
+
             <div class="section-header">
                 <h1 class="text-capitalize">{{ $quiz->title }}</h1>
                 <div class="section-header-breadcrumb">
@@ -24,12 +50,19 @@ use Illuminate\Support\Str;
 
             <div class="section-body">
 
+
                 <div class="row">
 
                     <div class="col-12 ">
                         <a href="{{ route('questions.create', $quiz->id) }}" class="btn btn-success btn-block w-25 ">+
                             Tambah
                             Soal</a>
+                        <a href="#" class="btn btn-primary btn-block w-25" data-toggle="modal"
+                            data-target="#importModal">Import Soal</a>
+
+                        <!-- Modal -->
+
+
                         <div class="card mt-4">
 
 

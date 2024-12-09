@@ -139,6 +139,7 @@ Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
     Route::get('quizzes/{quiz}/questions/{question}/edit', [QuizController::class, 'editQuestion'])->name('questions.edit');
     Route::put('quizzes/{quiz}/questions/{question}', [QuizController::class, 'updateQuestion'])->name('questions.update');
     Route::delete('quizzes/{quiz}/questions/{question}', [QuizController::class, 'destroyQuestion'])->name('questions.destroy');
+    Route::post('/quizzes/{quiz_id}/import-questions', [QuizController::class, 'importQuestions'])->name('questions.import');
 
     Route::resource('/manage-student', StudentController::class);
     Route::get('/add-student', [StudentController::class, 'create'])->name("add-student");
