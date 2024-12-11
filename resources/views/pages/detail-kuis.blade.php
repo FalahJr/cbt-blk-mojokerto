@@ -54,12 +54,14 @@ use Illuminate\Support\Str;
                 <div class="row">
 
                     <div class="col-12 ">
-                        <a href="{{ route('questions.create', $quiz->id) }}" class="btn btn-success btn-block w-25 ">+
-                            Tambah
-                            Soal</a>
-                        <a href="#" class="btn btn-primary btn-block w-25" data-toggle="modal"
-                            data-target="#importModal">Import Soal</a>
-
+                        <div class="d-flex">
+                            <a href="{{ route('questions.create', $quiz->id) }}" class="btn btn-success  mr-2 w-100">+
+                                Tambah
+                                Soal</a>
+                            <a href="#" class="btn btn-primary w-100" data-toggle="modal"
+                                data-target="#importModal">Import
+                                Soal</a>
+                        </div>
                         <!-- Modal -->
 
 

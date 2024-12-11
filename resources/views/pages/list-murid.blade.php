@@ -27,7 +27,10 @@ use Illuminate\Support\Str;
                 <div class="row">
 
                     <div class="col-12 ">
-                        <a href="{{ route('add-student') }}" class="btn btn-success btn-block w-25 ">+ Tambah Murid</a>
+                        @if (Session('user')['role'] == 'Admin')
+                            <a href="{{ route('add-student') }}" class="btn btn-success btn-block w-25 ">+ Tambah Murid</a>
+                        @endif
+
                         <div class="card mt-4">
 
 
@@ -37,18 +40,20 @@ use Illuminate\Support\Str;
                                     <table class="table-striped table-md table">
                                         <tr>
                                             <th>#</th>
-                                            <th>No Induk</th>
+                                            <th>No Peserta</th>
                                             <th>Nama Lengkap</th>
                                             <th>Email</th>
-                                            <th>Gambar</th>
-                                            <th>Action</th>
+                                            <th>Jenis Pelatihan</th>
+                                            @if (Session('user')['role'] == 'Admin')
+                                                <th>Action</th>
+                                            @endif
                                         </tr>
                                         <?php $no = 1; ?>
 
                                         @foreach ($data as $list)
                                             <tr>
                                                 <td>{{ $no }}</td>
-                                                <td>{{ $list->nomor_induk }}</td>
+                                                <td>{{ $list->nomor_peserta }}</td>
 
                                                 <td>
                                                     {{ $list->nama_lengkap }}
@@ -58,24 +63,29 @@ use Illuminate\Support\Str;
 
                                                 </td>
                                                 <td>
-                                                    @if ($list->gambar)
+
+                                                    {{ $list->nama }}
+
+                                                    {{-- @if ($list->gambar)
                                                         <img src="{{ asset('img/murid/' . $list->gambar) }}" alt=""
                                                             width="150">
                                                     @else
                                                         <i>Gambar Belum Di Setting</i>
-                                                    @endif
+                                                    @endif --}}
 
 
                                                 </td>
-                                                <td><a href="manage-student/{{ $list->id }}/edit"
-                                                        class="btn btn-secondary">Detail</a>
-                                                    <form class="ml-auto mr-auto mt-3" method="POST"
-                                                        action="/teacher/manage-student/{{ $list->id }}">
-                                                        {{ csrf_field() }}
-                                                        @method('DELETE')
-                                                        <button class="btn btn-danger">Delete</button>
-                                                    </form>
-                                                </td>
+                                                @if (Session('user')['role'] == 'Admin')
+                                                    <td><a href="manage-student/{{ $list->id }}/edit"
+                                                            class="btn btn-secondary">Detail</a>
+                                                        <form class="ml-auto mr-auto mt-3" method="POST"
+                                                            action="/admin/manage-student/{{ $list->id }}">
+                                                            {{ csrf_field() }}
+                                                            @method('DELETE')
+                                                            <button class="btn btn-danger">Delete</button>
+                                                        </form>
+                                                    </td>
+                                                @endif
                                             </tr>
                                             <?php $no++; ?>
                                         @endforeach

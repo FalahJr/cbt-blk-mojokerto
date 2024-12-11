@@ -19,8 +19,9 @@ class StudentController extends Controller
     public function index()
     {
         if (Session('user')['role'] == 'Guru') {
-            $data = User::where("role", "=", "Murid")->where('pelatihan_id', '=', Session('user')['pelatihan_id'])
-                ->get();
+            $data = User::join('pelatihan', 'pelatihan.id', '=', 'user.pelatihan_id')->where("role", "=", "Murid")->where('pelatihan_id', '=', Session('user')['pelatihan_id'])->get();
+        } elseif (Session('user')['role'] == 'Admin') {
+            $data = User::join('pelatihan', 'pelatihan.id', '=', 'user.pelatihan_id')->where("role", "=", "Murid")->get();
         } else {
             $data = User::where("role", "=", "Murid")
                 ->get();
