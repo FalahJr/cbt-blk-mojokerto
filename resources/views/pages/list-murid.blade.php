@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Management Murid')
+@section('title', 'Management Peserta')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,10 +14,10 @@ use Illuminate\Support\Str;
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Management Murid</h1>
+                <h1>Management Peserta</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Murid</a></div>
+                    <div class="breadcrumb-item"><a href="#">Peserta</a></div>
 
                 </div>
             </div>
@@ -28,7 +28,8 @@ use Illuminate\Support\Str;
 
                     <div class="col-12 ">
                         @if (Session('user')['role'] == 'Admin')
-                            <a href="{{ route('add-student') }}" class="btn btn-success btn-block w-25 ">+ Tambah Murid</a>
+                            <a href="{{ route('add-student') }}" class="btn btn-success btn-block w-25 ">+ Tambah
+                                Peserta</a>
                         @endif
 
                         <div class="card mt-4">
@@ -67,7 +68,7 @@ use Illuminate\Support\Str;
                                                     {{ $list->nama }}
 
                                                     {{-- @if ($list->gambar)
-                                                        <img src="{{ asset('img/murid/' . $list->gambar) }}" alt=""
+                                                        <img src="{{ asset('img/Peserta/' . $list->gambar) }}" alt=""
                                                             width="150">
                                                     @else
                                                         <i>Gambar Belum Di Setting</i>

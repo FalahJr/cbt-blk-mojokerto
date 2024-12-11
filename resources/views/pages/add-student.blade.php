@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Murid')
+@section('title', 'Add Peserta')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,11 +14,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Add Murid</h1>
+                <h1>Add Peserta</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Murid</a></div>
-                    <div class="breadcrumb-item">Add Murid</div>
+                    <div class="breadcrumb-item"><a href="#">Peserta</a></div>
+                    <div class="breadcrumb-item">Add Peserta</div>
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Form Add Murid</h4>
+                                <h4>Form Add Peserta</h4>
                             </div>
                             <form class="form" action="/admin/manage-student" method="post"
                                 enctype="multipart/form-data">
@@ -75,7 +75,7 @@
                                         <div class="col-sm-12 col-md-7">
 
                                             <select class="form-control selectric" name="pelatihan_id">
-                                                <option value="" hidden>Pilih Kategori Pelatihan</option>
+                                                <option value="" hidden>Pilih Jenis Pelatihan</option>
                                                 @foreach ($pelatihan as $list)
                                                     <option value="{{ $list->id }}">{{ $list->nama }}</option>
                                                 @endforeach

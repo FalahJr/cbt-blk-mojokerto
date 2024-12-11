@@ -52,7 +52,7 @@
                     </li>
                     <li class="{{ Request::is('admin/kategori-pelatihan') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('admin/kategori-pelatihan') }}"><i class="fas fa-home"></i>
-                            <span>Kategori Pelatihan</span></a>
+                            <span>Jenis Pelatihan</span></a>
                     </li>
                     <li class="{{ Request::is('quizzes/score') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('admin/quiz') }}"><i class="fas fa-file-pen"></i>

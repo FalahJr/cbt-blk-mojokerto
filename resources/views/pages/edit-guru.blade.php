@@ -78,7 +78,7 @@
                                         <div class="col-sm-12 col-md-7">
 
                                             <select class="form-control selectric" name="pelatihan_id">
-                                                <option value="" hidden>Pilih Kategori Pelatihan</option>
+                                                <option value="" hidden>Pilih Jenis Pelatihan</option>
                                                 @foreach ($pelatihan as $list)
                                                     <option value="{{ $list->id }}"
                                                         {{ $list->id == $guru->pelatihan_id ? 'selected' : '' }}>

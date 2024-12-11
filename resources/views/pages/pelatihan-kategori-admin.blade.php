@@ -14,10 +14,10 @@ use Illuminate\Support\Str;
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Management Kategori Pelatihan</h1>
+                <h1>Management Jenis Pelatihan</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Kategori Pelatihan</a></div>
+                    <div class="breadcrumb-item"><a href="#">Jenis Pelatihan</a></div>
 
                 </div>
             </div>
@@ -28,8 +28,7 @@ use Illuminate\Support\Str;
 
                     <div class="col-12 ">
                         <a href="{{ route('add-kategori-pelatihan') }}" class="btn btn-success btn-block w-25 ">+ Tambah
-                            Kategori
-                            Pelatihan</a>
+                            Jenis Pelatihan</a>
                         <div class="card mt-4">
 
 
@@ -39,7 +38,7 @@ use Illuminate\Support\Str;
                                     <table class="table-striped table-md table">
                                         <tr>
                                             <th>#</th>
-                                            <th>Nama Kategori Pelatihan</th>
+                                            <th>Nama Jenis Pelatihan</th>
                                             {{-- <th>Deskripsi</th> --}}
                                             {{-- <th>Created By</th> --}}
                                             <th>Action</th>

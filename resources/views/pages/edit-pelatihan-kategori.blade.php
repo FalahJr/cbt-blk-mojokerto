@@ -14,11 +14,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit Kategori Pelatihan</h1>
+                <h1>Edit Jenis Pelatihan</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Kategori Pelatihan</a></div>
-                    <div class="breadcrumb-item">Edit Kategori Pelatihan</div>
+                    <div class="breadcrumb-item"><a href="#">Jenis Pelatihan</a></div>
+                    <div class="breadcrumb-item">Edit Jenis Pelatihan</div>
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Form Edit Kategori Pelatihan</h4>
+                                <h4>Form Edit Jenis Pelatihan</h4>
                             </div>
                             <form class="form" action="/admin/kategori-pelatihan/{{ Request::segment(3) }}" method="post"
                                 enctype="multipart/form-data">
@@ -38,7 +38,7 @@
                                 <div class="card-body">
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama
-                                            Kategori Pelatihan</label>
+                                            Jenis Pelatihan</label>
                                         <div class="col-sm-12 col-md-7">
                                             <input type="text" class="form-control" name="nama"
                                                 value="{{ $kategori->nama }}">
