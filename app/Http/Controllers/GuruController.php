@@ -18,7 +18,7 @@ class GuruController extends Controller
 
     public function index()
     {
-        $data = User::where("role", "=", "Guru")
+        $data = User::join('pelatihan', 'pelatihan.id', '=', 'user.pelatihan_id')->where("role", "=", "Guru")
             ->get();
 
         // dd($data);

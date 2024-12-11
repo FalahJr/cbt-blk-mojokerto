@@ -22,68 +22,106 @@
 
 
             <div class="row">
-                <div class="col-9">
-                    <div class="section-header flex-column align-items-start ">
-                        <div class="d-flex justify-content-between align-items-center w-100">
-                            <h1>Daftar Peserta</h1>
-                            <a href="{{ url('teacher/manage-student') }}">View All</a>
-                        </div>
-                        <div class="d-flex justify-content-center align-items-center w-100 mt-5">
 
-                            @foreach ($listMurid as $list)
-                                {{-- <div class="col-3"> --}}
-                                <article class="article article-style-b mr-4" style="width: 15vw">
-                                    <div class="article-header">
-                                        <div class="article-image"
-                                            data-background="
+                @if (Session('user')['role'] == 'Guru')
+                    <div class="col-9">
+                        <div class="section-header flex-column align-items-start ">
+                            <div class="d-flex justify-content-between align-items-center w-100">
+                                <h1>Daftar Peserta</h1>
+                                <a href="{{ url('teacher/manage-student') }}">View All</a>
+                            </div>
+                            <div class="d-flex justify-content-center align-items-center w-100 mt-5">
+
+                                @foreach ($listMurid as $list)
+                                    {{-- <div class="col-3"> --}}
+                                    <article class="article article-style-b mr-4" style="width: 15vw">
+                                        <div class="article-header">
+                                            <div class="article-image"
+                                                data-background="
                                         @if ($list->gambar) {{ asset('img/murid/' . $list->gambar) }}
                                         @else
                                         {{ asset('img/news/img15.jpg') }} @endif
                                        ">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="article-details">
-                                        <div class="article-title">
-                                            <h2 class="text-capitalize"><a href="#">{{ $list->nama_lengkap }}</a>
-                                            </h2>
-                                        </div>
+                                        <div class="article-details">
+                                            <div class="article-title">
+                                                <h2 class="text-capitalize"><a href="#">{{ $list->nama_lengkap }}</a>
+                                                </h2>
+                                            </div>
 
-                                    </div>
-                                </article>
-                                {{-- </div> --}}
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-12 col-12 col-sm-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Leaderboard</h4>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-unstyled list-unstyled-border">
-                                @foreach ($list_leaderboard as $list_ranking)
-                                    <li class="media">
-                                        <img class="rounded-circle mr-3" width="50"
-                                            src="{{ asset('img/avatar/avatar-1.png') }}" alt="avatar">
-                                        <div class="media-body">
-
-                                            <div class="media-title">{{ $list_ranking->nama_lengkap }}</div>
-                                            <span class="text-small text-muted">Score {{ $list_ranking->score }}</span>
                                         </div>
-                                    </li>
+                                    </article>
+                                    {{-- </div> --}}
                                 @endforeach
-
-
-                            </ul>
-                            <div class="pt-1 pb-1 text-center">
-                                <a href="#" class="btn btn-primary btn-lg btn-round">
-                                    View All
-                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-lg-3 col-md-12 col-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Leaderboard</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled list-unstyled-border">
+                                    @foreach ($list_leaderboard as $list_ranking)
+                                        <li class="media">
+                                            <img class="rounded-circle mr-3" width="50"
+                                                src="{{ asset('img/avatar/avatar-1.png') }}" alt="avatar">
+                                            <div class="media-body">
+
+                                                <div class="media-title">{{ $list_ranking->nama_lengkap }}</div>
+                                                <span class="text-small text-muted">Score {{ $list_ranking->score }}</span>
+                                            </div>
+                                        </li>
+                                    @endforeach
+
+
+                                </ul>
+                                <div class="pt-1 pb-1 text-center">
+                                    <a href="#" class="btn btn-primary btn-lg btn-round">
+                                        View All
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="col-12">
+                        <div class="section-header flex-column align-items-start ">
+                            <div class="d-flex justify-content-between align-items-center w-100">
+                                <h1>Daftar Peserta</h1>
+                                <a href="{{ url('teacher/manage-student') }}">View All</a>
+                            </div>
+                            <div class="d-flex justify-content-center align-items-center w-100 mt-5">
+
+                                @foreach ($listMurid as $list)
+                                    {{-- <div class="col-3"> --}}
+                                    <article class="article article-style-b mr-4" style="width: 15vw">
+                                        <div class="article-header">
+                                            <div class="article-image"
+                                                data-background="
+                                            @if ($list->gambar) {{ asset('img/murid/' . $list->gambar) }}
+                                            @else
+                                            {{ asset('img/news/img15.jpg') }} @endif
+                                           ">
+                                            </div>
+                                        </div>
+                                        <div class="article-details">
+                                            <div class="article-title">
+                                                <h2 class="text-capitalize"><a href="#">{{ $list->nama_lengkap }}</a>
+                                                </h2>
+                                            </div>
+
+                                        </div>
+                                    </article>
+                                    {{-- </div> --}}
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
             </div>
 
 

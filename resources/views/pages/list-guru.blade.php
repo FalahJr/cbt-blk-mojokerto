@@ -40,7 +40,7 @@ use Illuminate\Support\Str;
                                             {{-- <th>No Induk</th> --}}
                                             <th>Nama Lengkap</th>
                                             <th>Email</th>
-                                            <th>Gambar</th>
+                                            <th>Jenis Pelatihan</th>
                                             <th>Action</th>
                                         </tr>
                                         <?php $no = 1; ?>
@@ -58,12 +58,14 @@ use Illuminate\Support\Str;
 
                                                 </td>
                                                 <td>
-                                                    @if ($list->gambar)
+                                                    {{ $list->nama }}
+
+                                                    {{-- @if ($list->gambar)
                                                         <img src="{{ asset('img/guru/' . $list->gambar) }}" alt=""
                                                             width="150">
                                                     @else
                                                         <i>Gambar Belum Di Setting</i>
-                                                    @endif
+                                                    @endif --}}
 
 
                                                 </td>
