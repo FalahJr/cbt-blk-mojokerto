@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Management Materi')
+@section('title', 'Management Kuis')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,10 +14,10 @@ use Illuminate\Support\Str;
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Management Materi</h1>
+                <h1>Management Kuis</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Materi</a></div>
+                    <div class="breadcrumb-item"><a href="#">Kuis</a></div>
 
                 </div>
             </div>
@@ -38,8 +38,7 @@ use Illuminate\Support\Str;
                                         <tr>
                                             <th>#</th>
                                             <th>Title</th>
-                                            {{-- <th>Deskripsi</th>
-                                            <th>Created By</th> --}}
+                                            <th>Kode Soal</th>
                                             <th>Action</th>
                                         </tr>
                                         <?php $no = 1; ?>
@@ -48,6 +47,7 @@ use Illuminate\Support\Str;
                                             <tr>
                                                 <td>{{ $no }}</td>
                                                 <td>{{ $list->title }}</td>
+                                                <td>{{ $list->kode }}</td>
 
 
                                                 <td>
