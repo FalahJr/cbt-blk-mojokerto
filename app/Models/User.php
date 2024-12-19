@@ -42,8 +42,4 @@ class User extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function notifikasis()
-    {
-        return $this->hasMany('App\Models\Notifikasi');
-    }
 }

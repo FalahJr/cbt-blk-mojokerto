@@ -80,6 +80,9 @@
                                 Don't have an account? <a href="auth-register.html">Create new one</a>
                             </div> --}}
                         </form>
+                        <div class="mt-3 text-center">
+                            Don't have an account? <a href="{{ route('register.form') }}">Register</a>
+                        </div>
 
 
                     </div>
