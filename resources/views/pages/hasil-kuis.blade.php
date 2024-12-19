@@ -42,10 +42,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="empty-state" data-height="400">
-                                    <div class="empty-state-icon bg-success ">
+                                    {{-- <div class="empty-state-icon bg-success ">
                                         <i class="fa-solid fa-award"></i>
-                                        {{-- <i class="fas fa-question"></i> --}}
-                                    </div>
+                                    </div> --}}
                                     {{-- <h2>Your Score : {{ $quizAttempt->score }}</h2> --}}
                                     <h2>
                                         Selamat anda telah menyelesaikan ujian : <b class="text-capitalize">

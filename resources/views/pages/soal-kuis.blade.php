@@ -8,10 +8,50 @@
     <link rel="stylesheet" href="{{ asset('library/codemirror/lib/codemirror.css') }}">
     <link rel="stylesheet" href="{{ asset('library/codemirror/theme/duotone-dark.css') }}">
     <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
+    <style>
+        #fixed-timer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            z-index: 1000;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            padding-top: 60px;
+            /* Sesuaikan dengan tinggi elemen timer */
+        }
+    </style>
 @endpush
 
 @section('main')
     <div class="main-content">
+        <!-- Modal untuk alert soal yang belum dijawab -->
+        <div class="modal fade" id="unansweredModal" tabindex="-1" aria-labelledby="unansweredModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="unansweredModalLabel">Soal Belum Terjawab</h5>
+                        <button type="button" class="btn-close" id="unansweredModalOkButton" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Anda belum mengisi jawaban untuk soal nomor berikut:
+                        <span id="unansweredList" class="font-weight-bold text-danger"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="unansweredModalOkButton"
+                            data-bs-dismiss="modal">OK</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Modal untuk Input Kode Quiz -->
         <div class="modal fade" id="codeModal" tabindex="-1" aria-labelledby="codeModalLabel" aria-hidden="true"
             data-bs-backdrop="static" data-bs-keyboard="false">
@@ -69,21 +109,19 @@
                     <div class="col-12">
                         <div class="card">
                             <!-- Timer display -->
-                            <div class="card-header d-flex justify-content-center w-100">
+                            <div class="card-header d-flex justify-content-center w-100" id="fixed-timer">
                                 <h3 class="text-danger font-weight-bold" id="timer" style="display: none;">
                                     {{ gmdate('H:i:s', $quiz->timer * 60) }}
                                 </h3>
                             </div>
 
                             <form id="quizForm" class="form" action="{{ route('student.quizzes.submit', $quiz->id) }}"
-                                method="post" enctype="multipart/form-data">
+                                method="post" enctype="multipart/form-data" onsubmit="return validateAnswers()">
                                 @csrf
                                 <?php $no = 1; ?>
                                 <div class="card-body" id="quiz-content" style="display: none;">
-                                    @foreach ($quiz->questions as $question)
-                                        <div class="form-group">
-                                            {{-- <h6 class="form-label text-dark mb-4">{{ $no . '. ' . $question->question }}
-                                            </h6> --}}
+                                    @foreach ($quiz->questions as $index => $question)
+                                        <div class="form-group question-group" data-question-number="{{ $index + 1 }}">
                                             <h6 class="form-label text-dark mb-4 d-flex">
                                                 <div>
                                                     <span class="mt-1 mr-2"> {{ $no }}. </span>
@@ -95,8 +133,8 @@
                                             <div class="row w-100">
                                                 <input type="hidden" name="question_{{ $question->id }}" value="">
                                                 <label class="col-12 w-100">
-                                                    <input type="radio" name="question_{{ $question->id }}" value="A"
-                                                        class="selectgroup-input">
+                                                    <input type="radio" name="question_{{ $question->id }}"
+                                                        value="A" class="selectgroup-input">
                                                     <span class="selectgroup-button">A. {{ $question->option_a }}</span>
                                                 </label>
                                                 <label class="col-12 w-100">
@@ -130,6 +168,7 @@
                                     </div>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -149,11 +188,20 @@
                 keyboard: false
             });
 
+            const unansweredModal = new bootstrap.Modal(document.getElementById('unansweredModal'), {
+                backdrop: 'static',
+                keyboard: false
+            });
 
             // Show code modal first
             codeModal.show();
             const startButton = document.getElementById('startFullscreen');
             const quizForm = document.getElementById('quizForm');
+
+            // Add event listener to the OK button inside unanswered modal
+            document.getElementById('unansweredModalOkButton').addEventListener('click', function() {
+                unansweredModal.hide(); // Hide the modal
+            });
 
             // Get quiz code from backend
             const correctCode = '{{ $quiz->kode }}';
@@ -195,8 +243,7 @@
 
             function goFullscreen() {
                 const elem = document.documentElement;
-                const sidebar = document.getElementById(
-                    'sidebar-wrapper'); // Ensure this matches the ID of the sidebar
+                const sidebar = document.getElementById('sidebar-wrapper');
 
                 if (elem.requestFullscreen) {
                     elem.requestFullscreen();
@@ -217,21 +264,11 @@
                 }
             }
 
-            // function handleFullscreenExit() {
-            //     const sidebar = document.getElementById(
-            //         'sidebar-wrapper'); // Ensure this matches the ID of the sidebar
-            //     if (sidebar) {
-            //         console.log("Showing sidebar");
-            //         sidebar.style.display = 'block'; // Show sidebar again
-            //     }
-            // }
-
             function handleFullscreenExit() {
-                const sidebar = document.getElementById(
-                    'sidebar-wrapper'); // Ensure this matches the ID of the sidebar
+                const sidebar = document.getElementById('sidebar-wrapper');
                 if (sidebar) {
                     console.log("Showing sidebar");
-                    sidebar.style.display = 'block'; // Show sidebar again
+                    sidebar.style.display = 'block';
                 }
                 if (
                     !document.fullscreenElement &&
@@ -244,22 +281,10 @@
                 }
             }
 
-
             startButton.addEventListener('click', function() {
                 goFullscreen();
                 fullscreenModal.hide();
                 startTimer(); // Start the timer and show quiz content
-            });
-
-            document.addEventListener('fullscreenchange', handleFullscreenExit);
-            document.addEventListener('webkitfullscreenchange', handleFullscreenExit);
-            document.addEventListener('mozfullscreenchange', handleFullscreenExit);
-            document.addEventListener('msfullscreenchange', handleFullscreenExit);
-
-            quizForm.addEventListener('submit', function() {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
             });
 
             // Timer functionality
@@ -289,6 +314,54 @@
                     }
                 }, 1000);
             }
+
+            // Validate unanswered questions
+            function validateAnswers() {
+                const unansweredQuestions = [];
+                const questionGroups = document.querySelectorAll('.question-group');
+
+                questionGroups.forEach(group => {
+                    const questionNumber = group.getAttribute('data-question-number');
+                    const inputs = group.querySelectorAll('input[type="radio"]');
+                    let isAnswered = false;
+
+                    inputs.forEach(input => {
+                        if (input.checked) {
+                            isAnswered = true;
+                        }
+                    });
+
+                    if (!isAnswered) {
+                        unansweredQuestions.push(questionNumber);
+                    }
+                });
+
+                if (unansweredQuestions.length > 0) {
+                    // Update modal content with unanswered questions
+                    const unansweredList = document.getElementById('unansweredList');
+                    unansweredList.textContent = unansweredQuestions.join(', ');
+
+                    // Show modal
+                    unansweredModal.show();
+
+                    return false; // Prevent form submission
+                }
+
+                return true; // Allow form submission if all questions are answered
+            }
+
+            // Attach validation to form submit
+            quizForm.addEventListener('submit', function(event) {
+                if (!validateAnswers()) {
+                    event.preventDefault(); // Stop form submission
+                }
+            });
+
+            // Listen for fullscreen exit
+            document.addEventListener('fullscreenchange', handleFullscreenExit);
+            document.addEventListener('webkitfullscreenchange', handleFullscreenExit);
+            document.addEventListener('mozfullscreenchange', handleFullscreenExit);
+            document.addEventListener('msfullscreenchange', handleFullscreenExit);
         });
     </script>
 @endsection
