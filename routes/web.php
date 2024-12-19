@@ -37,9 +37,13 @@ Route::get('/dashboard-ecommerce-dashboard', function () {
 
 // Login 
 
-Route::get('/', [LoginController::class, 'index_student'])->name('login-student');
+Route::get('/', [LoginController::class, 'index'])->name('login-student');
 Route::get('/login-teacher', [LoginController::class, 'index_teacher'])->name('login-teacher');
 Route::get('/logout-action', [LoginController::class, 'logout_action']);
+
+
+Route::get('/register', [LoginController::class, 'registerForm'])->name('register.form'); // Menampilkan halaman register
+Route::post('/register', [LoginController::class, 'register'])->name('register.action'); // Menangani proses register
 
 Route::get('/forgot-password', [UserController::class, 'forgot']);
 Route::post('/forgot-password-action', [UserController::class, 'forgot_action']);
