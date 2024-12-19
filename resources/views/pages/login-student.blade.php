@@ -28,10 +28,10 @@
                     class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white d-flex flex-column justify-content-center ">
                     <div class="m-3 p-4  ">
                         <div class="d-flex align-items-center  mb-5">
-                            <img src="{{ asset('img/logo-lms.png') }}" alt="logo" width="80"
+                            <img src="{{ asset('img/jatim.png') }}" alt="logo" width="80"
                                 class="shadow-light rounded-circle ">
-                            <h3 class="text-dark font-weight-normal ml-4">CBT BLK Mojokerto
-                            </h3>
+                            <h4 class="text-dark font-weight-normal ml-4">Tes Tulis BLK Mojokerto
+                            </h4>
                         </div>
 
 
