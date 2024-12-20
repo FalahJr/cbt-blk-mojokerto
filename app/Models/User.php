@@ -39,6 +39,18 @@ class User extends Model
         return $this->hasMany('App\Models\Pelatihan');
     }
 
+    public function kelulusan()
+    {
+        return $this->hasMany(Kelulusan::class, 'user_id', 'id');
+    }
+
+
+
+    public function quizAttempts()
+    {
+        return $this->hasMany(QuizAttempts::class, 'user_id', 'id');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

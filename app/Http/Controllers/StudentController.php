@@ -19,11 +19,11 @@ class StudentController extends Controller
     public function index()
     {
         if (Session('user')['role'] == 'Guru') {
-            $data = User::join('pelatihan', 'pelatihan.id', '=', 'user.pelatihan_id')->where("role", "=", "Murid")->where('pelatihan_id', '=', Session('user')['pelatihan_id'])->get();
+            $data = User::join('pelatihan', 'pelatihan.id', '=', 'user.pelatihan_id')->where("role", "=", "Murid")->where('pelatihan_id', '=', Session('user')['pelatihan_id'])->select('user.*', 'pelatihan.nama')->get();
         } elseif (Session('user')['role'] == 'Admin') {
-            $data = User::join('pelatihan', 'pelatihan.id', '=', 'user.pelatihan_id')->where("role", "=", "Murid")->get();
+            $data = User::join('pelatihan', 'pelatihan.id', '=', 'user.pelatihan_id')->where("role", "=", "Murid")->select('user.*', 'pelatihan.nama')->get();
         } else {
-            $data = User::where("role", "=", "Murid")
+            $data = User::where("role", "=", "Murid")->select('user.*', 'pelatihan.nama')
                 ->get();
         }
 
@@ -47,37 +47,31 @@ class StudentController extends Controller
     {
         // dd($request->all());
         if ($request) {
-            if ($request->hasFile('gambar')) {
 
-                // $getPegawaiBaru = Pegawai::orderBy('created_at', 'desc')->first();
-                // $getKonfigCuti = Konfig_cuti::where('tahun',(new \DateTime())->format('Y'))->first();
-                $fileName = $request->file('gambar')->getClientOriginalName();
-                $request->file('gambar')->move('img/murid', $fileName);
+            // $getPegawaiBaru = Pegawai::orderBy('created_at', 'desc')->first();
+            // $getKonfigCuti = Konfig_cuti::where('tahun',(new \DateTime())->format('Y'))->first();
 
-                $user = new User;
-                $user->nama_lengkap = $request->nama_lengkap;
-                $user->role = "Murid";
-                $user->email = $request->email;
-                $user->password = $request->password;
-                $user->alamat = $request->alamat;
-                $user->nomor_peserta = $request->nomor_peserta;
-                $user->pelatihan_id = $request->pelatihan_id;
 
-                $user->gambar = $fileName;
-                $user->created_at = Carbon::now();
-                $user->updated_at = Carbon::now();
+            $user = new User;
+            $user->nama_lengkap = $request->nama_lengkap;
+            $user->role = "Murid";
+            $user->email = $request->email;
+            $user->password = $request->password;
+            $user->alamat = $request->alamat;
+            $user->nomor_peserta = $request->nomor_peserta;
+            $user->pelatihan_id = $request->pelatihan_id;
 
-                $user->save();
+            $user->created_at = Carbon::now();
+            $user->updated_at = Carbon::now();
 
-                return redirect('/admin/manage-student');
+            $user->save();
+
+            return redirect('/admin/manage-student');
 
 
 
-                // ->with('success', 'Berhasil membuat Materi');
-            } else {
-                return redirect('/admin/manage-student');
-                // ->with('failed', 'Gagal membuat Materi');
-            }
+            // ->with('success', 'Berhasil membuat Materi');
+
         } else {
             return redirect('/admin/manage-student');
             // ->with('failed', 'Gagal membuat Materi');
@@ -116,29 +110,41 @@ class StudentController extends Controller
         $user->updated_at = Carbon::now();
         // $karyawan->image=$request->image;
 
-        if ($request->hasFile('gambar')) {
-            $fileName = $request->file('gambar')->getClientOriginalName();
-            $request->file('gambar')->move('img/murid', $fileName);
 
-            $user->gambar = $fileName;
-            $user->save();
-            return redirect('/admin/manage-student');
-        } else {
-            $user->save();
-            return redirect('/admin/manage-student');
-        }
+        $user->save();
+        return redirect('/admin/manage-student');
     }
 
     public function destroy(Request $request, $id)
     {
+        // Temukan user berdasarkan ID
         $user = User::findOrFail($id);
 
+        // dd($id);
 
+        try {
+            // Hapus data terkait secara berurutan sesuai relasi
+            // 1. Hapus UserAnswers melalui relasi QuizAttempts
+            foreach ($user->quizAttempts as $quizAttempt) {
+                $quizAttempt->userAnswers()->delete();
+            }
 
-        if ($user->delete()) {
-            return redirect('/admin/manage-student');
-        } else {
-            return redirect('/admin/manage-student');
+            $user->kelulusan()->delete();
+
+            // 2. Hapus QuizAttempts
+            $user->quizAttempts()->delete();
+
+            // 3. Hapus data Kelulusan
+
+            // 4. Hapus user
+            $user->delete();
+
+            return redirect('/admin/manage-student')->with('success', 'Siswa berhasil dihapus.');
+        } catch (\Exception $e) {
+            // Jika terjadi error, tampilkan pesan
+            dd($e);
+
+            return redirect('/admin/manage-student')->with('error', 'Terjadi kesalahan saat menghapus siswa.');
         }
     }
 }

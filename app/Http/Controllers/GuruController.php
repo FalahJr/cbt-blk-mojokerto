@@ -41,32 +41,26 @@ class GuruController extends Controller
     {
         // dd($request->all());
         if ($request) {
-            if ($request->hasFile('gambar')) {
 
-                // $getPegawaiBaru = Pegawai::orderBy('created_at', 'desc')->first();
-                // $getKonfigCuti = Konfig_cuti::where('tahun',(new \DateTime())->format('Y'))->first();
-                $fileName = $request->file('gambar')->getClientOriginalName();
-                $request->file('gambar')->move('img/guru', $fileName);
+            // $getPegawaiBaru = Pegawai::orderBy('created_at', 'desc')->first();
+            // $getKonfigCuti = Konfig_cuti::where('tahun',(new \DateTime())->format('Y'))->first();
 
-                $user = new User;
-                $user->nama_lengkap = $request->nama_lengkap;
-                $user->role = "Guru";
-                $user->email = $request->email;
-                $user->password = $request->password;
-                $user->alamat = $request->alamat;
-                $user->pelatihan_id = $request->pelatihan_id;
 
-                // $user->nomor_induk = $request->nomor_induk;
-                $user->gambar = $fileName;
-                $user->created_at = Carbon::now();
-                $user->updated_at = Carbon::now();
+            $user = new User;
+            $user->nama_lengkap = $request->nama_lengkap;
+            $user->role = "Guru";
+            $user->email = $request->email;
+            $user->password = $request->password;
+            $user->alamat = $request->alamat;
+            $user->pelatihan_id = $request->pelatihan_id;
 
-                $user->save();
+            // $user->nomor_induk = $request->nomor_induk;
+            $user->created_at = Carbon::now();
+            $user->updated_at = Carbon::now();
 
-                return redirect('/admin/manage-guru');
-            } else {
-                return redirect('/admin/manage-guru');
-            }
+            $user->save();
+
+            return redirect('/admin/manage-guru');
         } else {
             return redirect('/admin/manage-guru');
         }
@@ -105,17 +99,9 @@ class GuruController extends Controller
         $user->updated_at = Carbon::now();
         // $karyawan->image=$request->image;
 
-        if ($request->hasFile('gambar')) {
-            $fileName = $request->file('gambar')->getClientOriginalName();
-            $request->file('gambar')->move('img/guru', $fileName);
 
-            $user->gambar = $fileName;
-            $user->save();
-            return redirect('/admin/manage-guru');
-        } else {
-            $user->save();
-            return redirect('/admin/manage-guru');
-        }
+        $user->save();
+        return redirect('/admin/manage-guru');
     }
 
     public function destroy(Request $request, $id)
