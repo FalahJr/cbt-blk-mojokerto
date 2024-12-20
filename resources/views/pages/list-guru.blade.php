@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Management Guru')
+@section('title', 'Management Instruktur')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Management Guru</h1>
+                <h1>Management Instruktur</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Guru</a></div>
