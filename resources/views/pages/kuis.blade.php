@@ -117,7 +117,7 @@ use App\Models\QuizAttempts;
                 cillum dolore eu fugiat nulla pariatur. </p> --}}
                                             <div class="article-cta">
                                                 @if (Session('user')['role'] == 'Murid')
-                                                    @if (now()->toDateString() === $quizzes->tanggal_mulai)
+                                                    @if (now()->toDateString() >= $quizzes->tanggal_mulai)
                                                         <a href="/student/quizzes/{{ $quizzes->id }}"
                                                             class="btn btn-success w-100 mt-5">Mulai Ujian
                                                             <i class="fas fa-chevron-right"></i></a>
@@ -162,7 +162,7 @@ use App\Models\QuizAttempts;
                                     cillum dolore eu fugiat nulla pariatur. </p> --}}
                                     <div class="article-cta">
                                         @if (Session('user')['role'] == 'Murid')
-                                            @if (now()->toDateString() === $quizzes->tanggal_mulai)
+                                            @if (now()->toDateString() >= $quizzes->tanggal_mulai)
                                                 <a href="/student/quizzes/{{ $quizzes->id }}"
                                                     class="btn btn-success w-100 mt-5">Mulai Ujian
                                                     <i class="fas fa-chevron-right"></i></a>
