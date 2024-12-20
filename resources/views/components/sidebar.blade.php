@@ -64,7 +64,7 @@
                     </li>
                     <li class="{{ Request::is('manage-guru') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('admin/manage-guru') }}"><i class="fas fa-user"></i>
-                            <span>Manajemen Guru</span></a>
+                            <span>Manajemen Instruktur</span></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
