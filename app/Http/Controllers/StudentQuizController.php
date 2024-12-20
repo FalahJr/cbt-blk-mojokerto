@@ -17,13 +17,22 @@ class StudentQuizController extends  Controller
 {
     public function index()
     {
-        $quizzes = Quizzes::join('periode', 'periode.id', '=', 'quizzes.periode_id')->select('quizzes.*', 'periode.id as id_periode')->latest()->first();
-        $quiz_attempt = QuizAttempts::where('user_id', '=', Session('user')['id'])->where('quizzes_id', '=', $quizzes->id)->latest()->first();
-        if ($quiz_attempt) {
-            $kelulusan = Kelulusan::where('user_id', '=', Session('user')['id'])->where('quiz_attempts_id', '=', $quiz_attempt->id)->first();
+        if (Session('user')['role'] == 'Murid') {
+            $quizzes = Quizzes::join('periode', 'periode.id', '=', 'quizzes.periode_id')->select('quizzes.*', 'periode.id as id_periode')->latest()->first();
+            $quiz_attempt = QuizAttempts::where('user_id', '=', Session('user')['id'])->where('quizzes_id', '=', $quizzes->id)->latest()->first();
+            if ($quiz_attempt) {
+                $kelulusan = Kelulusan::where('user_id', '=', Session('user')['id'])->where('quiz_attempts_id', '=', $quiz_attempt->id)->first();
+            } else {
+                $kelulusan = Kelulusan::where('user_id', '=', Session('user')['id'])->latest()->first();
+            }
         } else {
-            $kelulusan = Kelulusan::where('user_id', '=', Session('user')['id'])->latest()->first();
+            $quizzes = Quizzes::all();
+            $kelulusan = null;
+            $quiz_attempt = null;
+
+            // dd($quizzes);
         }
+
 
         // dd((Session('user')['role']));
 
