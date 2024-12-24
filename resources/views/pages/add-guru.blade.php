@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Guru')
+@section('title', 'Add Instruktur')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,11 +14,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Add Guru</h1>
+                <h1>Add Instruktur</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Guru</a></div>
-                    <div class="breadcrumb-item">Add Guru</div>
+                    <div class="breadcrumb-item"><a href="#">Instruktur</a></div>
+                    <div class="breadcrumb-item">Add Instruktur</div>
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Form Add Guru</h4>
+                                <h4>Form Add Instruktur</h4>
                             </div>
                             <form class="form" action="/admin/manage-guru" method="post" enctype="multipart/form-data">
                                 @csrf
@@ -62,12 +62,7 @@
                                         </div>
                                     </div> --}}
 
-                                    <div class="form-group row mb-4">
-                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Alamat</label>
-                                        <div class="col-sm-12 col-md-7">
-                                            <textarea class="form-control" name="alamat"></textarea>
-                                        </div>
-                                    </div>
+
                                     <div class="form-group row">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pilih Kategori
                                             Pelatihan </label>

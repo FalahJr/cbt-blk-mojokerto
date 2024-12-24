@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Guru')
+@section('title', 'Edit Instruktur')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -14,11 +14,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit Guru</h1>
+                <h1>Edit Instruktur</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Guru</a></div>
-                    <div class="breadcrumb-item">Edit Guru</div>
+                    <div class="breadcrumb-item"><a href="#">Instruktur</a></div>
+                    <div class="breadcrumb-item">Edit Instruktur</div>
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Form Edit Guru</h4>
+                                <h4>Form Edit Instruktur</h4>
                             </div>
                             <form class="form" action="/admin/manage-guru/{{ Request::segment(3) }}" method="post"
                                 enctype="multipart/form-data">
@@ -64,14 +64,7 @@
 
 
 
-                                    <div class="form-group row mb-4">
-                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Alamat</label>
-                                        <div class="col-sm-12 col-md-7">
-                                            <textarea class="form-control" name="alamat">
-                                                {{ $guru->alamat }}
-                                            </textarea>
-                                        </div>
-                                    </div>
+
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pilih Kategori
                                             Pelatihan</label>
