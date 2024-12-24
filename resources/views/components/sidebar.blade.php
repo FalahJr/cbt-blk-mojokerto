@@ -32,13 +32,14 @@
                         <a class="nav-link" href="{{ url('teacher/periode') }}"><i class="fas fa-home"></i>
                             <span>Periode</span></a>
                     </li>
-                    <li class="{{ Request::is('quizzes/score') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('teacher/quiz') }}"><i class="fas fa-file-pen"></i>
-                            <span>Hasil Ujian</span></a>
-                    </li>
+
                     <li class="{{ Request::is('manage-student') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('teacher/manage-student') }}"><i class="fas fa-user"></i>
                             <span>Manajemen Peserta</span></a>
+                    </li>
+                    <li class="{{ Request::is('quizzes/score') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('teacher/quiz') }}"><i class="fas fa-file-pen"></i>
+                            <span>Hasil Ujian</span></a>
                     </li>
                 @endif
                 @if (Session('user')['role'] == 'Admin')
@@ -54,10 +55,7 @@
                         <a class="nav-link" href="{{ url('admin/kategori-pelatihan') }}"><i class="fas fa-home"></i>
                             <span>Jenis Pelatihan</span></a>
                     </li>
-                    <li class="{{ Request::is('quizzes/score') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('admin/quiz') }}"><i class="fas fa-file-pen"></i>
-                            <span>Hasil Ujian</span></a>
-                    </li>
+
                     <li class="{{ Request::is('manage-student') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('admin/manage-student') }}"><i class="fas fa-user"></i>
                             <span>Manajemen Peserta</span></a>
@@ -66,16 +64,25 @@
                         <a class="nav-link" href="{{ url('admin/manage-guru') }}"><i class="fas fa-user"></i>
                             <span>Manajemen Instruktur</span></a>
                     </li>
-                    <li class="nav-item dropdown">
+
+                    <li class="{{ Request::is('admin/quizzes') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/quizzes') }}">
+                            <i class="fas fa-file-pen"></i>
+                            <span>Manajemen Quiz</span></a>
+                    </li>
+                    <li class="{{ Request::is('quizzes/score') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/quiz') }}">
+                            <i class="fas fa-file-pen"></i>
+                            <span>Hasil Ujian</span></a>
+                    </li>
+                    {{-- <li class="nav-item dropdown">
                         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                                 class="fas fa-columns"></i>
                             <span>Manage Quiz</span></a>
                         <ul class="dropdown-menu">
-                            <li class="{{ Request::is('admin/quizzes') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ url('admin/quizzes') }}">Quiz</a>
-                            </li>
+                           
                         </ul>
-                    </li>
+                    </li> --}}
                 @endif
             </ul>
         </div>
