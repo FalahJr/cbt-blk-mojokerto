@@ -29,8 +29,6 @@ class StudentQuizController extends  Controller
             $quizzes = Quizzes::all();
             $kelulusan = null;
             $quiz_attempt = null;
-
-            // dd($quizzes);
         }
 
 
