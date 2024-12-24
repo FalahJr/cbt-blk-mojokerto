@@ -116,6 +116,7 @@ class LoginController extends Controller
             'nama_lengkap' => 'required|string|max:255',
             'password' => 'required|string',
             'pelatihan_id' => 'required|integer',
+            'nomor_peserta' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -128,6 +129,7 @@ class LoginController extends Controller
             'password' => $request->password,
             'pelatihan_id' => $request->pelatihan_id,
             'role' => 'Murid', // Default role for new users
+            'nomor_peserta' => $request->nomor_peserta,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

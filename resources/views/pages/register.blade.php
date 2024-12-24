@@ -37,7 +37,15 @@
                         <form method="post" action="{{ route('register.action') }}" class="needs-validation"
                             novalidate>
                             @csrf
-
+                            {{-- <input type="number" min="0" class="form-control" name="nomor_peserta"> --}}
+                            <div class="form-group">
+                                <label for="nomor_peserta">No. Peserta</label>
+                                <input id="nomor_peserta" type="number" min="0" class="form-control"
+                                    name="nomor_peserta" tabindex="1" required autofocus>
+                                <div class="invalid-feedback">
+                                    Please fill in your no peserta
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="nama_lengkap">Nama Lengkap</label>
                                 <input id="nama_lengkap" type="text" class="form-control" name="nama_lengkap"
