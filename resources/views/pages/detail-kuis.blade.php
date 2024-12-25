@@ -25,7 +25,12 @@ use Illuminate\Support\Str;
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="file">Pilih File Excel</label>
+                                <label for="file">Pilih File Excel
+                                </label> <br>
+                                <a href="{{ asset('file_upload/template/template-import-soal.xlsx') }}" target="_blank"
+                                    class=""> Download
+                                    Template
+                                    Excel</a><br>
                                 <input type="file" class="form-control" id="file" name="file" required>
                             </div>
                         </div>
