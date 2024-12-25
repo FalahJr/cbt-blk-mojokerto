@@ -55,17 +55,9 @@ Route::post('/login-action', [LoginController::class, 'login_action']);
 
 // Murid
 Route::middleware(['authMurid'])->prefix('student')->group(function () {
-    // Route::get('/home', function () {
-    //     return view('pages.dashboard', ['type_menu' => 'dashboard']);
-    // })->name('home-murid');
 
-    // Route::get('/materi', function () {
-    //     return view('pages.materi', ['type_menu' => 'components']);
     // });
-    Route::get('/home', [DashboardController::class, 'indexDashboardMurid']);
-    // Route::get('/materi', [MateriController::class, 'indexMateriMurid']);
-    // Route::get('/detail-materi/{id}', [MateriController::class, 'detailMateri']);
-    // Route::post('/materi/log-end-time', [MateriController::class, 'logEndTime'])->name('materi.logEndTime');
+    Route::get('/home', [StudentQuizController::class, 'index']);
     Route::get('/notification', [NotificationController::class, 'index']);
 
     // Quiz
