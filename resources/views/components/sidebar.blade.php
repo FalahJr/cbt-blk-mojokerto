@@ -18,10 +18,10 @@
                         <a class="nav-link" href="{{ url('student/home') }}"><i class="fas fa-th-large"></i>
                             <span>Dashboard</span></a>
                     </li>
-                    <li class="{{ Request::is('quizzes') ? 'active' : '' }}">
+                    {{-- <li class="{{ Request::is('quizzes') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('student/quizzes') }}"><i class="fas fa-file-pen"></i>
                             <span>Quiz</span></a>
-                    </li>
+                    </li> --}}
                 @endif
                 @if (Session('user')['role'] == 'Guru')
                     <li class="{{ Request::is('/teacher/home') ? 'active' : '' }}">
