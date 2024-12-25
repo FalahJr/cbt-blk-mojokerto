@@ -142,7 +142,14 @@ use App\Models\QuizAttempts;
                                     </div>
                                 @endif
                             @else
-                                <h2 class="section-title">All Quiz</h2>
+                                <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+                                    <div class="section-header">
+                                        <div class="d-flex flex-column">
+                                            <h1>HALO {{ Session('user')['nama_lengkap'] }} !!!</h1>
+                                            <p>Yuk kita belajar bersama</p>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
 
 
@@ -190,7 +197,14 @@ use App\Models\QuizAttempts;
 
                         @endif
                     @else
-                        <h2 class="section-title">All Quiz</h2>
+                        <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+                            <div class="section-header">
+                                <div class="d-flex flex-column">
+                                    <h1>HALO {{ Session('user')['nama_lengkap'] }} !!!</h1>
+                                    <p>Yuk kita belajar bersama</p>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
 
 

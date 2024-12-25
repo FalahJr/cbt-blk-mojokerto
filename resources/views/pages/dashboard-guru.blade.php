@@ -38,9 +38,8 @@
                                         <div class="article-header">
                                             <div class="article-image"
                                                 data-background="
-                                        @if ($list->gambar) {{ asset('img/murid/' . $list->gambar) }}
-                                        @else
-                                        {{ asset('img/news/img15.jpg') }} @endif
+                                       
+                                        {{ asset('img/avatar/avatar-1.png') }} 
                                        ">
                                             </div>
                                         </div>
@@ -101,10 +100,9 @@
                                         <div class="article-header">
                                             <div class="article-image"
                                                 data-background="
-                                            @if ($list->gambar) {{ asset('img/murid/' . $list->gambar) }}
-                                            @else
-                                            {{ asset('img/news/img15.jpg') }} @endif
-                                           ">
+                                       
+                                        {{ asset('img/avatar/avatar-1.png') }} 
+                                       ">
                                             </div>
                                         </div>
                                         <div class="article-details">
