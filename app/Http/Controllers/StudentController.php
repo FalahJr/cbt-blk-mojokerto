@@ -16,21 +16,33 @@ use Carbon\Carbon;
 class StudentController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search'); // Ambil nilai dari input pencarian
+
         if (Session('user')['role'] == 'Guru') {
-            $data = User::join('pelatihan', 'pelatihan.id', '=', 'user.pelatihan_id')->where("role", "=", "Murid")->where('pelatihan_id', '=', Session('user')['pelatihan_id'])->select('user.*', 'pelatihan.nama')->get();
+            $query = User::join('pelatihan', 'pelatihan.id', '=', 'user.pelatihan_id')
+                ->where("role", "=", "Murid")
+                ->where('pelatihan_id', '=', Session('user')['pelatihan_id']);
         } elseif (Session('user')['role'] == 'Admin') {
-            $data = User::join('pelatihan', 'pelatihan.id', '=', 'user.pelatihan_id')->where("role", "=", "Murid")->select('user.*', 'pelatihan.nama')->get();
+            $query = User::join('pelatihan', 'pelatihan.id', '=', 'user.pelatihan_id')
+                ->where("role", "=", "Murid");
         } else {
-            $data = User::where("role", "=", "Murid")->select('user.*', 'pelatihan.nama')
-                ->get();
+            $query = User::where("role", "=", "Murid");
         }
 
+        // Filter berdasarkan nama jika ada pencarian
+        if ($search) {
+            $query->where('user.nama_lengkap', 'LIKE', '%' . $search . '%');
+        }
 
-        // dd($data);
+        // Gunakan paginate (misalnya 10 item per halaman)
+        $data = $query->select('user.*', 'pelatihan.nama')->paginate(10)->appends(['search' => $search]);
+
         return view('pages.list-murid', compact('data'));
     }
+
+
 
 
 

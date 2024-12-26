@@ -31,7 +31,15 @@ use Illuminate\Support\Str;
                             <a href="{{ route('add-student') }}" class="btn btn-success btn-block w-25 ">+ Tambah
                                 Peserta</a>
                         @endif
-
+                        <form action="{{ route('manage-student.index') }}" method="GET" class="my-4">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Cari Nama Peserta"
+                                    value="{{ request('search') }}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">Cari</button>
+                                </div>
+                            </div>
+                        </form>
                         <div class="card mt-4">
 
 
@@ -39,79 +47,52 @@ use Illuminate\Support\Str;
                                 <div class="table-responsive">
 
                                     <table class="table-striped table-md table">
-                                        <tr>
-                                            <th>#</th>
-                                            <th>No Peserta</th>
-                                            <th>Nama Lengkap</th>
-                                            <th>Email</th>
-                                            <th>Jenis Pelatihan</th>
-                                            @if (Session('user')['role'] == 'Admin')
-                                                <th>Action</th>
-                                            @endif
-                                        </tr>
-                                        <?php $no = 1; ?>
-
-                                        @foreach ($data as $list)
+                                        <thead>
                                             <tr>
-                                                <td>{{ $no }}</td>
-                                                <td>{{ $list->nomor_peserta }}</td>
-
-                                                <td>
-                                                    {{ $list->nama_lengkap }}
-                                                </td>
-                                                <td>
-                                                    {{ $list->email }}
-
-                                                </td>
-                                                <td>
-
-                                                    {{ $list->nama }}
-
-                                                    {{-- @if ($list->gambar)
-                                                        <img src="{{ asset('img/Peserta/' . $list->gambar) }}" alt=""
-                                                            width="150">
-                                                    @else
-                                                        <i>Gambar Belum Di Setting</i>
-                                                    @endif --}}
-
-
-                                                </td>
+                                                <th>#</th>
+                                                <th>No Peserta</th>
+                                                <th>Nama Lengkap</th>
+                                                <th>Email</th>
+                                                <th>Jenis Pelatihan</th>
                                                 @if (Session('user')['role'] == 'Admin')
-                                                    <td><a href="manage-student/{{ $list->id }}/edit"
-                                                            class="btn btn-secondary">Detail</a>
-                                                        <form class="ml-auto mr-auto mt-3" method="POST"
-                                                            action="/admin/manage-student/{{ $list->id }}">
-                                                            {{ csrf_field() }}
-                                                            @method('DELETE')
-                                                            <button class="btn btn-danger">Delete</button>
-                                                        </form>
-                                                    </td>
+                                                    <th>Action</th>
                                                 @endif
                                             </tr>
-                                            <?php $no++; ?>
-                                        @endforeach
-
-
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($data as $index => $list)
+                                                <tr>
+                                                    <td>{{ $data->firstItem() + $index }}</td>
+                                                    <td>{{ $list->nomor_peserta }}</td>
+                                                    <td>{{ $list->nama_lengkap }}</td>
+                                                    <td>{{ $list->email }}</td>
+                                                    <td>{{ $list->nama }}</td>
+                                                    @if (Session('user')['role'] == 'Admin')
+                                                        <td>
+                                                            <a href="manage-student/{{ $list->id }}/edit"
+                                                                class="btn btn-secondary">Detail</a>
+                                                            <form class="d-inline" method="POST"
+                                                                action="/admin/manage-student/{{ $list->id }}">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="btn btn-danger">Delete</button>
+                                                            </form>
+                                                        </td>
+                                                    @endif
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="6" class="text-center">Data tidak ditemukan</td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
+                            <!-- Pagination -->
                             <div class="card-footer text-right">
                                 <nav class="d-inline-block">
-                                    <ul class="pagination mb-0">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1"><i
-                                                    class="fas fa-chevron-left"></i></a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#">1 <span
-                                                    class="sr-only">(current)</span></a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">2</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
-                                        </li>
-                                    </ul>
+                                    {!! $data->links() !!}
                                 </nav>
                             </div>
                         </div>
