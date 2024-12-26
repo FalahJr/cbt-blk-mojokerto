@@ -16,12 +16,21 @@ use Carbon\Carbon;
 class GuruController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = User::join('pelatihan', 'pelatihan.id', '=', 'user.pelatihan_id')->where("role", "=", "Guru")
-            ->get();
+        $search = $request->input('search'); // Ambil nilai dari input pencarian
 
-        // dd($data);
+        $query = User::join('pelatihan', 'pelatihan.id', '=', 'user.pelatihan_id')
+            ->where("role", "=", "Guru");
+
+        // Filter berdasarkan nama jika ada pencarian
+        if ($search) {
+            $query->where('user.nama_lengkap', 'LIKE', '%' . $search . '%');
+        }
+
+        // Gunakan paginate (misalnya 10 item per halaman)
+        $data = $query->select('user.*', 'pelatihan.nama')->paginate(10)->appends(['search' => $search]);
+
         return view('pages.list-guru', compact('data'));
     }
 
