@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Leaderboard')
+@section('title', 'Hasil Tes')
 
 @section('main')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Leaderboard</h1>
+                <h1>Hasil Tes</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item">Leaderboard</div>
+                    <div class="breadcrumb-item">Hasil Tes</div>
                 </div>
             </div>
 
@@ -21,7 +21,7 @@
                                 <h4>Pelatihan: {{ $pelatihan->nama }}</h4>
                             </div>
                             <a href="{{ route('quizzes.export', ['pelatihan_id' => $pelatihan->id, 'periode_id' => $periode_id]) }}"
-                                class="btn btn-success">Export to Excel</a>
+                                class="btn btn-success mx-4 btn-sm">Export to Excel</a>
 
                             <div class="card-body">
                                 <!-- Tabs untuk periode -->
