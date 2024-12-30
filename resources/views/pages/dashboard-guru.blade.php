@@ -86,35 +86,50 @@
                         </div>
                     </div>
                 @else
-                    <div class="col-12">
-                        <div class="section-header flex-column align-items-start ">
-                            <div class="d-flex justify-content-between align-items-center w-100">
-                                <h1>Daftar Peserta</h1>
-                                <a href="{{ url('teacher/manage-student') }}">View All</a>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-icon shadow-primary bg-primary">
+                                <i class="fas fa-user"></i>
                             </div>
-                            <div class="d-flex justify-content-center align-items-center w-100 mt-5">
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Jumlah Peserta</h4>
+                                </div>
+                                <div class="card-body">
+                                    {{ $listMurid }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-icon shadow-primary bg-primary">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Jumlah Instruktur</h4>
+                                </div>
+                                <div class="card-body">
+                                    {{ $listGuru }}
 
-                                @foreach ($listMurid as $list)
-                                    {{-- <div class="col-3"> --}}
-                                    <article class="article article-style-b mr-4" style="width: 15vw">
-                                        <div class="article-header">
-                                            <div class="article-image"
-                                                data-background="
-                                       
-                                        {{ asset('img/avatar/avatar-1.png') }} 
-                                       ">
-                                            </div>
-                                        </div>
-                                        <div class="article-details">
-                                            <div class="article-title">
-                                                <h2 class="text-capitalize"><a href="#">{{ $list->nama_lengkap }}</a>
-                                                </h2>
-                                            </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="card card-statistic-2">
+                            <div class="card-icon shadow-primary bg-primary">
+                                <i class="fas fa-archive"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Jumlah Pelatihan</h4>
+                                </div>
+                                <div class="card-body">
+                                    {{ $listPelatihan }}
 
-                                        </div>
-                                    </article>
-                                    {{-- </div> --}}
-                                @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
