@@ -100,9 +100,11 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-8 col-12 order-lg-2 min-vh-100 background-walk-y position-relative overlay-gradient-bottom order-1"
-                    data-background="{{ asset('img/unsplash/register-bg.png') }}">
+                <div class="col-lg-8 col-12 order-lg-2 min-vh-100 position-relative overlay-gradient-bottom order-1"
+                    style="background: url('{{ asset('img/blk.jpeg') }}') no-repeat center center; 
+            background-size: cover;">
                 </div>
+
             </div>
         </section>
     </div>
