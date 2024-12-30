@@ -3,6 +3,7 @@
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\KelulusanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\NotificationController;
@@ -157,6 +158,9 @@ Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
 
     Route::get('profile', [UserController::class, 'index']);
     Route::put('profile', [UserController::class, 'update']);
+
+    Route::resource('/kelulusan', KelulusanController::class);
+
 
 
 
