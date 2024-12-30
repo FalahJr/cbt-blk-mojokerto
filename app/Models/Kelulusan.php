@@ -42,6 +42,6 @@ class Kelulusan extends Model
      */
     public function quizAttempt()
     {
-        return $this->belongsTo('App\Models\QuizAttempt', 'quiz_attempts_id');
+        return $this->belongsTo('App\Models\QuizAttempts', 'quiz_attempts_id');
     }
 }
