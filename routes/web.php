@@ -10,6 +10,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PelatihanKategoriController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentQuizController;
 use App\Http\Controllers\UserController;
@@ -160,6 +161,9 @@ Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
     Route::put('profile', [UserController::class, 'update']);
 
     Route::resource('/kelulusan', KelulusanController::class);
+
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings/reset', [SettingController::class, 'resetData'])->name('settings.reset');
 
 
 
