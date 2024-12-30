@@ -80,6 +80,11 @@
                             <i class="fas fa-file-pen"></i>
                             <span>Manajemen Kelulusan</span></a>
                     </li>
+                    <li class="{{ Request::is('settings') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/settings') }}">
+                            <i class="fas fa-file-pen"></i>
+                            <span>Setting</span></a>
+                    </li>
                     {{-- <li class="nav-item dropdown">
                         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                                 class="fas fa-columns"></i>
