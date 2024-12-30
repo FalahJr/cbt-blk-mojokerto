@@ -75,6 +75,11 @@
                             <i class="fas fa-file-pen"></i>
                             <span>Hasil Ujian</span></a>
                     </li>
+                    <li class="{{ Request::is('kelulusan') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/kelulusan') }}">
+                            <i class="fas fa-file-pen"></i>
+                            <span>Manajemen Kelulusan</span></a>
+                    </li>
                     {{-- <li class="nav-item dropdown">
                         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                                 class="fas fa-columns"></i>
