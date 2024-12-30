@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\QuizAttemptsByPelatihanExport;
+use App\Exports\QuizAttemptsByPeriodExport;
 use App\Exports\QuizAttemptsExport;
 use App\Models\Kelulusan;
 use App\Models\Pelatihan;
+use App\Models\Periode;
 use App\Models\Quizzes;
 use App\Models\Questions;
 use App\Models\QuizAttempts;
@@ -136,23 +139,10 @@ class StudentQuizController extends  Controller
         return view('pages.score', compact('listQuizAttempt', 'pelatihan', 'quizzes_id'));
     }
 
-    public function showAllResultByAdmin($quizzes_id, Request $request)
+
+    public function showAllResultIndexByAdmin()
     {
         // Pastikan hanya data yang sesuai dengan quiz dan pelatihan yang dipilih
-        $query = QuizAttempts::join('user', 'user.id', '=', 'quiz_attempts.user_id')
-            ->where('quiz_attempts.quizzes_id', '=', $quizzes_id)
-            ->select('quiz_attempts.*', 'user.nama_lengkap')
-            ->orderBy('quiz_attempts.score', 'desc');
-        $listQuizAttempt = Null;
-
-        // Tambahkan filter pelatihan jika parameter pelatihan_id diberikan
-        if (isset($request->pelatihan_id)) {
-            $pelatihan_id = $request->pelatihan_id;
-            $query->where('user.pelatihan_id', '=', $pelatihan_id);
-            $listQuizAttempt = $query->get();
-        }
-
-        $pelatihan_id = $request->pelatihan_id;
 
 
         // dd($listQuizAttempt);
@@ -160,22 +150,104 @@ class StudentQuizController extends  Controller
         // Ambil daftar pelatihan untuk dropdown atau keperluan lainnya
         $pelatihan = Pelatihan::all();
         // dd($pelatihan);
-        // dd($request->pelatihan_id);
-        // dd($query->toSql(), $query->getBindings(), $listQuizAttempt);
 
-        return view('pages.score', compact('listQuizAttempt', 'pelatihan', 'quizzes_id', 'pelatihan_id'));
+        return view('pages.result-score', compact('pelatihan'));
+    }
+    // public function showAllResultByAdmin($pelatihan_id, Request $request)
+    // {
+    //     // Pastikan hanya data yang sesuai dengan quiz dan pelatihan yang dipilih
+    //     $query = QuizAttempts::join('user', 'user.id', '=', 'quiz_attempts.user_id')
+    //         ->where('quiz_attempts.quizzes_id', '=', $quizzes_id)
+    //         ->select('quiz_attempts.*', 'user.nama_lengkap')
+    //         ->orderBy('quiz_attempts.score', 'desc');
+    //     $listQuizAttempt = Null;
+
+    //     // Tambahkan filter pelatihan jika parameter pelatihan_id diberikan
+    //     if (isset($request->pelatihan_id)) {
+    //         $pelatihan_id = $request->pelatihan_id;
+    //         $query->where('user.pelatihan_id', '=', $pelatihan_id);
+    //         $listQuizAttempt = $query->get();
+    //     }
+
+    //     $pelatihan_id = $request->pelatihan_id;
+
+
+    //     // dd($listQuizAttempt);
+
+    //     // Ambil daftar pelatihan untuk dropdown atau keperluan lainnya
+    //     $pelatihan = Pelatihan::all();
+    //     // dd($pelatihan);
+    //     // dd($request->pelatihan_id);
+    //     // dd($query->toSql(), $query->getBindings(), $listQuizAttempt);
+
+    //     return view('pages.score', compact('listQuizAttempt', 'pelatihan', 'quizzes_id', 'pelatihan_id'));
+    // }
+
+    public function showAllResultByAdmin($pelatihan_id, Request $request)
+    {
+        // Ambil semua periode yang terkait dengan pelatihan
+        $periodes = Periode::whereHas('quizzes', function ($query) {
+            $query->select('id');
+        })->get();
+
+        // Periode aktif (default: periode pertama jika tidak ada `periode_id` di request)
+        $periode_id = $request->periode_id ?? $periodes->first()?->id;
+
+        // Ambil semua skor berdasarkan pelatihan dan periode
+        $listQuizAttempt = QuizAttempts::join('quizzes', 'quizzes.id', '=', 'quiz_attempts.quizzes_id')
+            ->join('user', 'user.id', '=', 'quiz_attempts.user_id')
+            ->where('user.pelatihan_id', $pelatihan_id) // Filter berdasarkan pelatihan_id
+            ->where('quizzes.periode_id', $periode_id) // Filter berdasarkan periode
+            ->select('quiz_attempts.*', 'user.nama_lengkap', 'user.nomor_peserta')
+            ->orderBy('quiz_attempts.score', 'desc')
+            ->get();
+
+        // Ambil data pelatihan untuk header
+        $pelatihan = Pelatihan::find($pelatihan_id);
+
+        return view('pages.score', compact('listQuizAttempt', 'periodes', 'pelatihan', 'periode_id'));
     }
 
-    public function exportToExcel($quizzes_id, Request $request)
+
+
+    // public function exportToExcel($pelatihan_id, Request $request)
+    // {
+    //     // Ambil data pelatihan
+    //     $pelatihan = Pelatihan::findOrFail($pelatihan_id);
+
+    //     // Ambil periode_id dari request
+    //     $periode_id = $request->periode_id;
+
+    //     // Ambil quiz berdasarkan periode_id (quizzes terhubung dengan periode_id)
+    //     $quizzes = Quizzes::where('periode_id', $periode_id)->get();
+
+    //     // Cek jika quizzes kosong
+    //     if ($quizzes->isEmpty()) {
+    //         return back()->with('error', 'Tidak ada quiz yang ditemukan untuk periode ini.');
+    //     }
+
+    //     return Excel::download(new QuizAttemptsByPelatihanExport($quizzes, $pelatihan), 'Nilai Pelatihan ' . $pelatihan->nama . '.xlsx');
+    // }
+
+    public function exportToExcel($pelatihan_id, Request $request)
     {
-        $pelatihan_id = $request->pelatihan_id ?? null;
-        if (Session('user')['role'] == 'Guru') {
-            $pelatihan_id = Session('user')['pelatihan_id'];
-            $pelatihan = Pelatihan::where('id', $pelatihan_id)->first();
-        } else {
-            $pelatihan = Pelatihan::where('id', $pelatihan_id)->first();
+        // Ambil data pelatihan
+        $pelatihan = Pelatihan::findOrFail($pelatihan_id);
+
+        // Ambil periode_id dari request
+        $periode_id = $request->periode_id;
+
+        // Ambil semua periode terkait pelatihan
+        $periodes = Periode::whereHas('quizzes', function ($query) {
+            $query->select('id');
+        })->get();
+
+        // Cek jika tidak ada periode terkait
+        if ($periodes->isEmpty()) {
+            return back()->with('error', 'Tidak ada periode yang terkait dengan pelatihan ini.');
         }
 
-        return Excel::download(new QuizAttemptsExport($quizzes_id, $pelatihan_id), 'Nilai Pelatihan ' . $pelatihan->nama . '.xlsx');
+        // Kembalikan export Excel dengan setiap periode menjadi sheet terpisah
+        return Excel::download(new QuizAttemptsByPelatihanExport($periodes, $pelatihan), 'Nilai Pelatihan ' . $pelatihan->nama . '.xlsx');
     }
 }

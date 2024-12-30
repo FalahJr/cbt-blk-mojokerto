@@ -146,9 +146,10 @@ Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
     Route::get('/add-guru', [GuruController::class, 'create'])->name("add-guru");
 
     Route::get('quiz', [StudentQuizController::class, 'index']);
-    Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByAdmin'])
+    Route::get('quiz/score/{pelatihan_id}', [StudentQuizController::class, 'showAllResultByAdmin'])
         ->name('admin.quizzes.showAllResultByAdmin');
-    Route::get('/quizzes/{quizzes_id}/export', [StudentQuizController::class, 'exportToExcel'])->name('quizzes.export');
+    // Route::get('/quizzes/{pelatihan_id}/export', [StudentQuizController::class, 'exportToExcel'])->name('quizzes.export');
+    Route::get('/quizzes/{pelatihan_id}/export', [StudentQuizController::class, 'exportToExcel'])->name('quizzes.export');
 
     // Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByAdmin'])->name('admin.quizzes.showAllResultebByAdmin');
 
@@ -165,6 +166,7 @@ Route::middleware(['authAdmin'])->prefix('admin')->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings/reset', [SettingController::class, 'resetData'])->name('settings.reset');
 
+    Route::get('result-score', [StudentQuizController::class, 'showAllResultIndexByAdmin']);
 
 
 

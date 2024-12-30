@@ -70,8 +70,8 @@
                             <i class="fas fa-file-pen"></i>
                             <span>Manajemen Quiz</span></a>
                     </li>
-                    <li class="{{ Request::is('quizzes/score') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('admin/quiz') }}">
+                    <li class="{{ Request::is('result-score') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/result-score') }}">
                             <i class="fas fa-file-pen"></i>
                             <span>Hasil Ujian</span></a>
                     </li>

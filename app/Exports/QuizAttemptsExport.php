@@ -3,32 +3,36 @@
 namespace App\Exports;
 
 use App\Models\QuizAttempts;
-use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Illuminate\Contracts\View\View;
 
 class QuizAttemptsExport implements FromView
 {
-    protected $quizzes_id;
+    protected $quiz;
+    protected $periode;
     protected $pelatihan_id;
 
-    public function __construct($quizzes_id, $pelatihan_id = null)
+    public function __construct($quiz, $periode, $pelatihan_id = null)
     {
-        $this->quizzes_id = $quizzes_id;
+        $this->quiz = $quiz;
+        $this->periode = $periode;
         $this->pelatihan_id = $pelatihan_id;
     }
 
     public function view(): View
     {
-        $query = QuizAttempts::join('user', 'user.id', '=', 'quiz_attempts.user_id')
-            ->where('quiz_attempts.quizzes_id', '=', $this->quizzes_id)
-            ->select('quiz_attempts.*', 'user.nama_lengkap');
+        // Ambil semua skor berdasarkan quiz_id dan periode
+        $listQuizAttempt = QuizAttempts::join('user', 'user.id', '=', 'quiz_attempts.user_id')
+            ->where('quiz_attempts.quizzes_id', $this->quiz->id)
+            ->where('user.pelatihan_id', $this->pelatihan_id)
+            ->orderBy('quiz_attempts.score', 'desc')
+            ->select('quiz_attempts.*', 'user.nama_lengkap')
+            ->get();
 
-        if ($this->pelatihan_id) {
-            $query->where('user.pelatihan_id', '=', $this->pelatihan_id);
-        }
-
-        $listQuizAttempt = $query->orderBy('score', 'desc')->get();
-
-        return view('exports.quiz_attempts', compact('listQuizAttempt'));
+        return view('exports.quiz_attempts', [
+            'listQuizAttempt' => $listQuizAttempt,
+            'quiz' => $this->quiz,
+            'periode' => $this->periode
+        ]);
     }
 }
