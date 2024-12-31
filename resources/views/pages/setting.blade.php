@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Management Kelulusan')
+@section('title', 'Setting Reset Data')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -12,10 +12,10 @@
         <section class="section">
 
             <div class="section-header">
-                <h1>Management Kelulusan</h1>
+                <h1>Setting Reset Data</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Kelulusan</a></div>
+                    <div class="breadcrumb-item"><a href="#">Setting Reset Data</a></div>
                 </div>
             </div>
             @if (session('success'))
