@@ -40,8 +40,8 @@
                             {{-- <input type="number" min="0" class="form-control" name="nomor_peserta"> --}}
                             <div class="form-group">
                                 <label for="nomor_peserta">No. Peserta</label>
-                                <input id="nomor_peserta" type="number" min="0" class="form-control"
-                                    name="nomor_peserta" tabindex="1" required autofocus>
+                                <input id="nomor_peserta" type="text" class="form-control" name="nomor_peserta"
+                                    tabindex="1" required autofocus>
                                 <div class="invalid-feedback">
                                     Please fill in your no peserta
                                 </div>

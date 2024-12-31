@@ -66,7 +66,7 @@
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nomor
                                             Peserta</label>
                                         <div class="col-sm-12 col-md-7">
-                                            <input type="number" min="0" class="form-control" name="nomor_peserta"
+                                            <input type="text" class="form-control" name="nomor_peserta"
                                                 value="{{ $murid->nomor_peserta }}">
                                         </div>
                                     </div>
