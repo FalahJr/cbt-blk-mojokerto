@@ -27,7 +27,10 @@ use Illuminate\Support\Str;
                 <div class="row">
 
                     <div class="col-12 ">
-                        <a href="{{ route('add-periode') }}" class="btn btn-success btn-block w-25 ">+ Tambah Periode</a>
+                        @if (Session('user')['role'] == 'Admin')
+                            <a href="{{ route('add-periode') }}" class="btn btn-success btn-block w-25 ">+ Tambah
+                                Periode</a>
+                        @endif
                         <div class="card mt-4">
 
 
@@ -40,7 +43,9 @@ use Illuminate\Support\Str;
                                             <th>Nama Periode</th>
                                             {{-- <th>Deskripsi</th> --}}
                                             {{-- <th>Created By</th> --}}
-                                            <th>Action</th>
+                                            @if (Session('user')['role'] == 'Admin')
+                                                <th>Action</th>
+                                            @endif
                                         </tr>
                                         <?php $no = 1; ?>
 
@@ -53,16 +58,17 @@ use Illuminate\Support\Str;
                                                     {!! nl2br(htmlspecialchars_decode(Str::limit($list->deskripsi, 1000))) !!}
 
                                                 </td> --}}
-
-                                                <td class="d-flex"><a href="periode/{{ $list->id }}/edit"
-                                                        class="btn btn-secondary">Detail</a>
-                                                    <form class="ml-2" method="POST"
-                                                        action="/admin/periode/{{ $list->id }}">
-                                                        {{ csrf_field() }}
-                                                        @method('DELETE')
-                                                        <button class="btn btn-danger">Delete</button>
-                                                    </form>
-                                                </td>
+                                                @if (Session('user')['role'] == 'Admin')
+                                                    <td class="d-flex"><a href="periode/{{ $list->id }}/edit"
+                                                            class="btn btn-secondary">Detail</a>
+                                                        <form class="ml-2" method="POST"
+                                                            action="/admin/periode/{{ $list->id }}">
+                                                            {{ csrf_field() }}
+                                                            @method('DELETE')
+                                                            <button class="btn btn-danger">Delete</button>
+                                                        </form>
+                                                    </td>
+                                                @endif
                                             </tr>
                                             <?php $no++; ?>
                                         @endforeach

@@ -89,14 +89,6 @@ Route::middleware(['authGuru'])->prefix('teacher')->group(function () {
     Route::resource('/periode', PeriodeController::class);
     Route::get('/add-periode', [PeriodeController::class, 'create'])->name("add-periode");
     // Quiz
-    // Route::resource('quizzes', QuizController::class);
-    // Route::get('quizzes/edit/{id}', [QuizController::class, 'edit']);
-    // Route::put('quizzes/update/{id}', [QuizController::class, 'update']);
-    // Route::get('quizzes/{quiz}/questions/create', [QuizController::class, 'createQuestion'])->name('questions.create');
-    // Route::post('quizzes/{quiz}/questions', [QuizController::class, 'storeQuestion'])->name('questions.store');
-    // Route::get('quizzes/{quiz}/questions/{question}/edit', [QuizController::class, 'editQuestion'])->name('questions.edit');
-    // Route::put('quizzes/{quiz}/questions/{question}', [QuizController::class, 'updateQuestion'])->name('questions.update');
-    // Route::delete('quizzes/{quiz}/questions/{question}', [QuizController::class, 'destroyQuestion'])->name('questions.destroy');
 
     Route::resource('/manage-student', StudentController::class);
     Route::get('/add-student', [StudentController::class, 'create'])->name("add-student");

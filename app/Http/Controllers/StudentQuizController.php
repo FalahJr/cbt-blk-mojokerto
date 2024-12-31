@@ -21,24 +21,44 @@ class StudentQuizController extends  Controller
     public function index()
     {
         if (Session('user')['role'] == 'Murid') {
-            $quizzes = Quizzes::join('periode', 'periode.id', '=', 'quizzes.periode_id')->select('quizzes.*', 'periode.id as id_periode')->latest()->first();
-            $quiz_attempt = QuizAttempts::where('user_id', '=', Session('user')['id'])->where('quizzes_id', '=', $quizzes->id)->latest()->first();
-            if ($quiz_attempt) {
-                $kelulusan = Kelulusan::where('user_id', '=', Session('user')['id'])->where('quiz_attempts_id', '=', $quiz_attempt->id)->first();
-            } else {
-                $kelulusan = Kelulusan::where('user_id', '=', Session('user')['id'])->latest()->first();
+            // Ambil quiz terbaru berdasarkan periode, jika ada
+            $quizzes = Quizzes::join('periode', 'periode.id', '=', 'quizzes.periode_id')
+                ->select('quizzes.*', 'periode.id as id_periode')
+                ->latest()
+                ->first();
+
+            $quiz_attempt = null;
+            $kelulusan = null;
+
+            // Pastikan $quizzes tidak null sebelum diakses
+            if ($quizzes) {
+                $quiz_attempt = QuizAttempts::where('user_id', '=', Session('user')['id'])
+                    ->where('quizzes_id', '=', $quizzes->id)
+                    ->latest()
+                    ->first();
+
+                if ($quiz_attempt) {
+                    // Cari kelulusan berdasarkan quiz_attempt jika ada
+                    $kelulusan = Kelulusan::where('user_id', '=', Session('user')['id'])
+                        ->where('quiz_attempts_id', '=', $quiz_attempt->id)
+                        ->first();
+                } else {
+                    // Cari kelulusan terakhir jika tidak ada quiz_attempt
+                    $kelulusan = Kelulusan::where('user_id', '=', Session('user')['id'])->latest()->first();
+                }
             }
         } else {
+            // Jika bukan murid, ambil semua data quiz
             $quizzes = Quizzes::all();
             $kelulusan = null;
             $quiz_attempt = null;
         }
 
-
-        // dd((Session('user')['role']));
+        // dd($quizzes);
 
         return view('pages.kuis', compact('quizzes', 'kelulusan', 'quiz_attempt'));
     }
+
 
     public function showQuiz($id)
     {
