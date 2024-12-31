@@ -31,16 +31,14 @@ class SettingController extends Controller
         try {
             DB::beginTransaction();
 
-            // Hapus tabel yang memiliki relasi foreign key terlebih dahulu
-            DB::table('kelulusan')->delete();
-            DB::table('quiz_attempts')->delete();
-            DB::table('questions')->delete();
-            DB::table('quizzes')->delete();
-            DB::table('periode')->delete();
-            DB::table('user_answers')->delete();
-
-            // Jangan hapus admin/guru
-            DB::table('user')->whereNotIn('role', ['Admin', 'Guru'])->delete();
+            // Urutan penghapusan sesuai relasi foreign key
+            DB::table('user_answers')->delete(); // Foreign key ke quiz_attempts
+            DB::table('kelulusan')->delete(); // Foreign key ke quiz_attempts
+            DB::table('quiz_attempts')->delete(); // Foreign key ke quizzes
+            DB::table('questions')->delete(); // Foreign key ke quizzes atau periode
+            DB::table('quizzes')->delete(); // Foreign key ke periode
+            DB::table('periode')->delete(); // Parent table
+            DB::table('user')->whereNotIn('role', ['Admin', 'Guru'])->delete(); // Hapus user kecuali admin/guru
 
             DB::commit();
 
