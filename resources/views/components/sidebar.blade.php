@@ -37,8 +37,10 @@
                         <a class="nav-link" href="{{ url('teacher/manage-student') }}"><i class="fas fa-user"></i>
                             <span>Manajemen Peserta</span></a>
                     </li>
-                    <li class="{{ Request::is('quizzes/score') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('teacher/quiz') }}"><i class="fas fa-file-pen"></i>
+                    <li class="{{ Request::is('result-score') ? 'active' : '' }}">
+                        <a class="nav-link"
+                            href="{{ route('teacher.quizzes.showAllResultByAdmin', ['pelatihan_id' => Session('user')['pelatihan_id']]) }}"><i
+                                class="fas fa-file-pen"></i>
                             <span>Hasil Ujian</span></a>
                     </li>
                 @endif

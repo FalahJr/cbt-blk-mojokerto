@@ -209,6 +209,7 @@ class StudentQuizController extends  Controller
         $periodes = Periode::whereHas('quizzes', function ($query) {
             $query->select('id');
         })->get();
+        // dd($pelatihan_id);
 
         // Periode aktif (default: periode pertama jika tidak ada `periode_id` di request)
         $periode_id = $request->periode_id ?? $periodes->first()?->id;
@@ -224,6 +225,7 @@ class StudentQuizController extends  Controller
 
         // Ambil data pelatihan untuk header
         $pelatihan = Pelatihan::find($pelatihan_id);
+
 
         return view('pages.score', compact('listQuizAttempt', 'periodes', 'pelatihan', 'periode_id'));
     }

@@ -20,18 +20,31 @@
                             <div class="card-header">
                                 <h4>Pelatihan: {{ $pelatihan->nama }}</h4>
                             </div>
-                            <a href="{{ route('quizzes.export', ['pelatihan_id' => $pelatihan->id, 'periode_id' => $periode_id]) }}"
-                                class="btn btn-success mx-4 btn-sm">Export to Excel</a>
+                            @if (Session('user')['role'] == 'Guru')
+                                <a href="{{ route('teacher.quizzes.export', ['pelatihan_id' => $pelatihan->id, 'periode_id' => $periode_id]) }}"
+                                    class="btn btn-success mx-4 btn-sm">Export to Excel</a>
+                            @else
+                                <a href="{{ route('quizzes.export', ['pelatihan_id' => $pelatihan->id, 'periode_id' => $periode_id]) }}"
+                                    class="btn btn-success mx-4 btn-sm">Export to Excel</a>
+                            @endif
+
 
                             <div class="card-body">
                                 <!-- Tabs untuk periode -->
                                 <ul class="nav nav-tabs" id="periodeTabs" role="tablist">
                                     @foreach ($periodes as $periode)
                                         <li class="nav-item">
-                                            <a class="nav-link {{ $periode->id == $periode_id ? 'active' : '' }}"
-                                                href="{{ route('admin.quizzes.showAllResultByAdmin', ['pelatihan_id' => $pelatihan->id, 'periode_id' => $periode->id]) }}">
-                                                {{ $periode->nama }}
-                                            </a>
+                                            @if (Session('user')['role'] == 'Guru')
+                                                <a class="nav-link {{ $periode->id == $periode_id ? 'active' : '' }}"
+                                                    href="{{ route('teacher.quizzes.showAllResultByAdmin', ['pelatihan_id' => $pelatihan->id, 'periode_id' => $periode->id]) }}">
+                                                    {{ $periode->nama }}
+                                                </a>
+                                            @else
+                                                <a class="nav-link {{ $periode->id == $periode_id ? 'active' : '' }}"
+                                                    href="{{ route('admin.quizzes.showAllResultByAdmin', ['pelatihan_id' => $pelatihan->id, 'periode_id' => $periode->id]) }}">
+                                                    {{ $periode->nama }}
+                                                </a>
+                                            @endif
                                         </li>
                                     @endforeach
                                 </ul>

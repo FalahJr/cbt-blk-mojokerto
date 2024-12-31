@@ -94,15 +94,17 @@ Route::middleware(['authGuru'])->prefix('teacher')->group(function () {
     Route::get('/add-student', [StudentController::class, 'create'])->name("add-student");
 
     Route::get('quiz', [StudentQuizController::class, 'index']);
-    Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByGuru'])->name('teacher.quizzes.showAllResultByGuru');
-    Route::get('/quizzes/{quizzes_id}/export', [StudentQuizController::class, 'exportToExcel'])->name('guru.quizzes.export');
+    // Route::get('quiz/score/{quiz_id}', [StudentQuizController::class, 'showAllResultByGuru'])->name('teacher.quizzes.showAllResultByGuru');
+    // Route::get('/quizzes/{quizzes_id}/export', [StudentQuizController::class, 'exportToExcel'])->name('guru.quizzes.export');
+    Route::get('/quizzes/{pelatihan_id}/export', [StudentQuizController::class, 'exportToExcel'])->name('teacher.quizzes.export');
 
 
 
     Route::get('profile', [UserController::class, 'index']);
     Route::put('profile', [UserController::class, 'update']);
 
-
+    Route::get('quiz/score/{pelatihan_id}', [StudentQuizController::class, 'showAllResultByAdmin'])
+        ->name('teacher.quizzes.showAllResultByAdmin');
 
     // Route::post('/store-materi', [MateriController::class, 'store']);
 });
